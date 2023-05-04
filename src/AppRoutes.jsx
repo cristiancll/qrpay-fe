@@ -2,13 +2,14 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import QRScanner from "./components/qr/QRScanner.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
-import BillingPage from "./pages/main/BillingPage.jsx";
+import BillingPage from "./pages/home/BillingPage.jsx";
+import UserPage from "./pages/home/UserPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import AdminPage from "./pages/main/AdminPage.jsx";
-import ManagerPage from "./pages/main/ManagerPage.jsx";
-import SellerPage from "./pages/main/SellerPage.jsx";
-import ClientPage from "./pages/main/ClientPage.jsx";
+import AdminPage from "./pages/home/AdminPage.jsx";
+import ManagerPage from "./pages/home/ManagerPage.jsx";
+import SellerPage from "./pages/home/SellerPage.jsx";
+import ClientPage from "./pages/home/ClientPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
@@ -24,6 +25,7 @@ function AppRoutes() {
                 <Route path="billing" element={<BillingPage/>} />
                 <Route path="seller" element={<SellerPage/>} />
                 <Route path="client" element={<ClientPage/>} />
+                <Route path="user" element={<UserPage />} />
             </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<LogoutPage />} />
