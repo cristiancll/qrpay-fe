@@ -16,15 +16,9 @@ const TopBar = () => {
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const handleLogout = () => {
-        navigate("/logout")
+    const handleNavigate = (path) => {
+        setAnchorEl(null)
+        navigate(path)
     }
 
     return (
@@ -39,7 +33,7 @@ const TopBar = () => {
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
-                        onClick={handleMenu}
+                        onClick={(e) => setAnchorEl(e.currentTarget)}
                         color="inherit"
                     >
                         <AccountCircle/>
@@ -57,11 +51,10 @@ const TopBar = () => {
                             horizontal: 'right',
                         }}
                         open={Boolean(anchorEl)}
-                        onClose={handleClose}
+                        onClose={() => setAnchorEl(null)}
                     >
-                        <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                        <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
-                        <MenuItem onClick={handleLogout}>Sair</MenuItem>
+                        <MenuItem onClick={() => handleNavigate("/user")}>Minha Conta</MenuItem>
+                        <MenuItem onClick={() => handleNavigate("/logout")}>Sair</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

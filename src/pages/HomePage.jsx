@@ -13,14 +13,19 @@ import CssBaseLine from "@mui/material/CssBaseline";
 import Auth from "../common/auth.js";
 
 const OutletContainer = ({children}) => {
+    const css = {
+        height: "calc(100vh - 120px)",
+        width: "100%",
+        overflow: "auto",
+    }
     return (
         <Grid
             container
             justifyContent="center"
             alignItems="center"
-            style={{height: "calc(100vh - 120px)"}}
+            style={css}
         >
-            <Grid>
+            <Grid sx={{width: "100%"}}>
                 <Box textAlign="center">{children}</Box>
             </Grid>
         </Grid>
