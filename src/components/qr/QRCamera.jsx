@@ -7,12 +7,10 @@ import "./overlay.css"
 const QRCamera = ({onScan, onClose}) => {
     const viewport = useViewport();
     const scanner = useQRScanner(viewport);
-    console.log("SCANNER: ", scanner)
     if (!scanner.allowed) return <NoCamera/>
 
     if (scanner.isScanned) {
         onScan(scanner.code?.data)
-        // onScan(scanner.ref.srcObject)
     }
     return (
         <>

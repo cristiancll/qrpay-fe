@@ -24,7 +24,6 @@ export function getConstraints(viewport) {
 
 export function injectCameraConstraints(viewport) {
     return async function() {
-        console.log("VIEWPORT: ", viewport);
         if (!navigator.mediaDevices) throw new CameraNotFound("Camera not found");
 
         try {

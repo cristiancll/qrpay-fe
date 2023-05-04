@@ -45,7 +45,6 @@ const LoginPage = () => {
         const ok = validateInputs();
         if (ok) {
             auth.login(form.user.value, form.password.value, (err) => {
-                console.log(err)
                 const update = form;
                 update.user.error = Error.INVALID_CREDENTIALS;
                 update.password.error = Error.INVALID_CREDENTIALS;
