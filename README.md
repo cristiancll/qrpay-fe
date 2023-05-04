@@ -1,1 +1,1 @@
-# jimpay-fe
+# QR Pay
