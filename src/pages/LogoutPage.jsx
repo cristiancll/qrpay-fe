@@ -9,7 +9,7 @@ import CenterContainer from "../components/CenterContainer.jsx";
 const LogoutPage = () => {
     const auth = useAuthentication();
     const navigate = useNavigate();
-    const [countdown, setCountdown] = useState(5);
+    const [countdown, setCountdown] = useState(3);
     useEffect(() => {
         const interval = setInterval(() => {
             setCountdown(countdown - 1);
