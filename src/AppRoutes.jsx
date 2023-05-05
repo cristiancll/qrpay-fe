@@ -9,7 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import AdminPage from "./pages/home/AdminPage.jsx";
 import ManagerPage from "./pages/home/ManagerPage.jsx";
-import SellerPage from "./pages/home/SellerPage.jsx";
+import SellerPage from "./pages/home/seller/SellerPage.jsx";
 import ClientPage from "./pages/home/ClientPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
