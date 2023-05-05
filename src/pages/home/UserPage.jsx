@@ -2,8 +2,11 @@ import {Button, Grid, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Error from "../../common/error.js";
+import ButtonOption from "../../components/ButtonOption.jsx";
 import CenterContainer from "../../components/CenterContainer.jsx";
 import FormField from "../../components/FormField.jsx";
+import OptionsColumn from "../../components/OptionsColumn.jsx";
+import PageHeader from "../../components/PageHeader.jsx";
 import {useAuthentication} from "../../providers/AuthProvider.jsx";
 
 const UserPage = () => {
@@ -90,67 +93,45 @@ const UserPage = () => {
     }
 
     return (
-        <CenterContainer>
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                direction="column"
-                rowSpacing={3}
-            >
-                <Grid>
-                    <Typography
-                        variant="h1"
-                        color="#BDBDBD">
-                        Perfil
-                    </Typography>
-                </Grid>
-                <FormField
-                    label="Nome"
-                    type="text"
-                    id="name"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Telefone"
-                    type="text"
-                    id="phone"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Email"
-                    type="email"
-                    id="email"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Senha"
-                    type="password"
-                    id="password"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                    >
-                        Atualizar
-                    </Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        onClick={handleDelete}
-                    >
-                        Deletar Conta
-                    </Button>
-                </Grid>
-            </Grid>
-        </CenterContainer>
+        <OptionsColumn>
+            <PageHeader variant={"h2"} text="Minha Conta"/>
+            <FormField
+                label="Nome"
+                type="text"
+                id="name"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Telefone"
+                type="text"
+                id="phone"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Email"
+                type="email"
+                id="email"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Senha"
+                type="password"
+                id="password"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <ButtonOption
+                text="Atualizar"
+                onClick={handleSubmit}
+            />
+            <ButtonOption
+                text="Excluir Conta"
+                onClick={handleDelete}
+            />
+        </OptionsColumn>
     )
 };
 

@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
 import FormField from "../components/FormField.jsx";
+import OptionsColumn from "../components/OptionsColumn.jsx";
+import PageHeader from "../components/PageHeader.jsx";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
@@ -78,61 +81,39 @@ const LoginPage = () => {
     }
 
     return (
-        <CenterContainer>
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                direction="column"
-                rowSpacing={3}
-            >
-                <Grid>
-                    <Typography
-                        variant="h1"
-                        color="#BDBDBD">
-                        Login
-                    </Typography>
-                </Grid>
-                <FormField
-                    label="Usuário"
-                    type="text"
-                    id="user"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Senha"
-                    type="password"
-                    id="password"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                    >
-                        Entrar
-                    </Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        variant="text"
-                        onClick={() => navigate("/reset-password")}
-                    >
-                        Esqueci minha senha
-                    </Button>
-                </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        variant="text"
-                        onClick={() => navigate("/register")}
-                    >
-                        Não tenho conta
-                    </Button>
-                </Grid>
-            </Grid>
-        </CenterContainer>
+        <OptionsColumn>
+            <PageHeader
+                text="Login"
+            />
+            <FormField
+                label="Usuário"
+                type="text"
+                id="user"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Senha"
+                type="password"
+                id="password"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <ButtonOption
+                text="Entrar"
+                onClick={handleSubmit}
+            />
+            <ButtonOption
+                text="Esqueci minha senha"
+                onClick={() => navigate("/reset-password")}
+                variant="text"
+            />
+            <ButtonOption
+                text="Não tenho conta"
+                onClick={() => navigate("/register")}
+                variant="text"
+            />
+        </OptionsColumn>
     )
 };
 

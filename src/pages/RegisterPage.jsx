@@ -2,8 +2,11 @@ import {Button, Grid, TextField, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Error from "../common/error.js";
+import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
 import FormField from "../components/FormField.jsx";
+import OptionsColumn from "../components/OptionsColumn.jsx";
+import PageHeader from "../components/PageHeader.jsx";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
 
 const RegisterPage = () => {
@@ -98,85 +101,52 @@ const RegisterPage = () => {
     }
 
     return (
-        <CenterContainer>
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                direction="column"
-                rowSpacing={3}
-            >
-                <Grid xs={12}>
-                    <Typography
-                        variant="h2"
-                        color="#BDBDBD">
-                        Cadastro
-                    </Typography>
-                </Grid>
-                <FormField
-                    label="Nome"
-                    type="text"
-                    id="name"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Telefone"
-                    type="phone"
-                    id="phone"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Email"
-                    type="email"
-                    id="email"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Senha"
-                    type="password"
-                    id="password"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <FormField
-                    label="Confirmar Senha"
-                    type="password"
-                    id="confirmPassword"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                    >
-                        Registrar
-                    </Button>
-                </Grid>
-            </Grid>
-        </CenterContainer>
+        <OptionsColumn>
+            <PageHeader
+                text="Cadastro"
+                variant="h2"
+            />
+            <FormField
+                label="Nome"
+                type="text"
+                id="name"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Telefone"
+                type="phone"
+                id="phone"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Email"
+                type="email"
+                id="email"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Senha"
+                type="password"
+                id="password"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Confirmar Senha"
+                type="password"
+                id="confirmPassword"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <ButtonOption
+                text="Registrar"
+                onClick={handleSubmit}
+            />
+        </OptionsColumn>
     )
 };
-
-// const InputField = ({fields}) => {
-//     return (
-//         <TextField
-//             label={fields.label}
-//             type={fields.type}
-//             name={fields.id}
-//             id={fields.id}
-//             password="password"
-//             variant="outlined"
-//             helperText={form.password.error}
-//             error={Error.has(form.password.error)}
-//             value={form.password.value}
-//             onChange={events.handleChange}
-//             onBlur={events.handleBlur}
-//         />
-//     );
-// }
 
 export default RegisterPage;

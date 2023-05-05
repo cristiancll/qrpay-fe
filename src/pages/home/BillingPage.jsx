@@ -1,8 +1,10 @@
-import {Button} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import React, {useState} from 'react';
 import MainButton from "../../buttons/MainButton.jsx";
 import QRCodeButton from "../../buttons/QRCodeButton.jsx";
 import Auth from "../../common/auth.js";
+import CenterContainer from "../../components/CenterContainer.jsx";
+import OptionsColumn from "../../components/OptionsColumn.jsx";
 import QRScanner from "../../components/qr/QRScanner.jsx";
 import {useAuthentication} from "../../providers/AuthProvider.jsx";
 import UnauthorizedPage from "../UnauthorizedPage.jsx";
@@ -27,11 +29,16 @@ const BillingPage = () => {
     return (
         <div>
             <QRScanner visible={showQR} onScan={onScan} onClose={onClose}/>
-            <MainButton
-                onClick={() => setShowQR(true)}
-            >
-                LER QR CODE
-            </MainButton>
+                <OptionsColumn>
+                    <MainButton
+                        onClick={() => setShowQR(true)}
+                    >
+                        LER QR CODE
+                    </MainButton>
+                    <MainButton>
+                        CRIAR QR CODE
+                    </MainButton>
+                </OptionsColumn>
             <p>{code}</p>
         </div>
     );

@@ -2,8 +2,11 @@ import {Button, Grid, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Error from "../common/error.js";
+import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
 import FormField from "../components/FormField.jsx";
+import OptionsColumn from "../components/OptionsColumn.jsx";
+import PageHeader from "../components/PageHeader.jsx";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
 
 const ResetPasswordPage = () => {
@@ -60,38 +63,23 @@ const ResetPasswordPage = () => {
     }
 
     return (
-        <CenterContainer>
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                direction="column"
-                rowSpacing={3}
-            >
-                <Grid>
-                    <Typography
-                        variant="h3"
-                        color="#BDBDBD">
-                        Recuperar Senha
-                    </Typography>
-                </Grid>
-                <FormField
-                    label="Usuário"
-                    type="text"
-                    id="user"
-                    form={form}
-                    events={{handleChange, handleBlur}}
-                />
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                    >
-                        Enviar E-mail
-                    </Button>
-                </Grid>
-            </Grid>
-        </CenterContainer>
+        <OptionsColumn>
+            <PageHeader
+                text="Recuperar Senha"
+                variant="h3"
+            />
+            <FormField
+                label="Usuário"
+                type="text"
+                id="user"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <ButtonOption
+                text="Enviar E-mail"
+                onClick={handleSubmit}
+            />
+        </OptionsColumn>
     )
 };
 
