@@ -1,6 +1,7 @@
 import {Button, Grid, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import Check from "../common/check.js";
 import Error from "../common/error.js";
 import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";

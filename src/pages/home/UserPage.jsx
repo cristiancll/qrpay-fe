@@ -1,3 +1,4 @@
+import Check from "../../common/check.js";
 import {Button, Grid, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
