@@ -14,7 +14,7 @@ import Auth from "../common/auth.js";
 
 const OutletContainer = ({children}) => {
     const css = {
-        height: "calc(100vh - 120px)",
+        height: "calc(100vh - 112px)",
         width: "100%",
         overflow: "auto",
     }

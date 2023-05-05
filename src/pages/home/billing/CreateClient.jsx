@@ -1,18 +1,18 @@
-import {Button, Grid, Typography} from "@mui/material";
 import React, {useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import Error from "../common/error.js";
-import ButtonOption from "../components/ButtonOption.jsx";
-import CenterContainer from "../components/CenterContainer.jsx";
-import FormField from "../components/FormField.jsx";
-import OptionsColumn from "../components/OptionsColumn.jsx";
-import PageHeader from "../components/PageHeader.jsx";
-import {useAuthentication} from "../providers/AuthProvider.jsx";
+import Error from "../../../common/error.js";
+import ButtonOption from "../../../components/ButtonOption.jsx";
+import FormField from "../../../components/FormField.jsx";
+import OptionsColumn from "../../../components/OptionsColumn.jsx";
+import PageHeader from "../../../components/PageHeader.jsx";
+import Check from "../../../common/check.js";
 
-const ResetPasswordPage = () => {
-    const navigate = useNavigate()
+const CreateClient = () => {
     const [form, setForm] = useState({
-        user: {
+        name: {
+            value: "",
+            error: null,
+        },
+        phone: {
             value: "",
             error: null,
         },
@@ -21,8 +21,12 @@ const ResetPasswordPage = () => {
     const validateInputs = () => {
         let ok = true;
         const update = form;
-        if (form.user.value === "") {
-            update.user.error = Error.MANDATORY_FIELD;
+        if (form.name.value === "") {
+            update.name.error = Error.MANDATORY_FIELD;
+            ok = false;
+        }
+        if (form.phone.value === "") {
+            update.phone.error = Error.MANDATORY_FIELD;
             ok = false;
         }
         if (!ok) {
@@ -37,7 +41,7 @@ const ResetPasswordPage = () => {
     const handleSubmit = () => {
         const ok = validateInputs();
         if (ok) {
-            // TODO: implementar reset de senha
+            // TODO: Register
         }
     }
 
@@ -62,28 +66,34 @@ const ResetPasswordPage = () => {
                 value: value,
             }
         })
-
     }
 
     return (
-        <OptionsColumn middle>
+        <OptionsColumn>
             <PageHeader
-                text="Recuperar Senha"
-                variant="h3"
+                text="Cadastro"
+                variant="h2"
             />
             <FormField
-                label="Usuário"
+                label="Nome"
                 type="text"
-                id="user"
+                id="name"
+                form={form}
+                events={{handleChange, handleBlur}}
+            />
+            <FormField
+                label="Telefone"
+                type="tel"
+                id="phone"
                 form={form}
                 events={{handleChange, handleBlur}}
             />
             <ButtonOption
-                text="Enviar E-mail"
+                text="Cadastrar"
                 onClick={handleSubmit}
             />
         </OptionsColumn>
     )
 };
 
-export default ResetPasswordPage;
+export default CreateClient;

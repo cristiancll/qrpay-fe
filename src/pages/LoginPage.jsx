@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Check from "../common/check.js";
 import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
 import FormField from "../components/FormField.jsx";
@@ -70,6 +71,9 @@ const LoginPage = () => {
     }
     const handleChange = (e) => {
         const {name, value} = e.target;
+        if (!Check.Input.valid(e)) {
+            return;
+        }
         setForm({
             ...form,
             [name]: {

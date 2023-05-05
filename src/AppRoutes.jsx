@@ -2,7 +2,8 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import QRScanner from "./components/qr/QRScanner.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
-import BillingPage from "./pages/home/BillingPage.jsx";
+import BillingPage from "./pages/home/billing/BillingPage.jsx";
+import CreateClient from "./pages/home/billing/CreateClient.jsx";
 import UserPage from "./pages/home/UserPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
@@ -23,6 +24,7 @@ function AppRoutes() {
                 <Route path="admin" element={<AdminPage />} />
                 <Route path="manager" element={<ManagerPage/>} />
                 <Route path="billing" element={<BillingPage/>} />
+                <Route path="billing/create" element={<CreateClient/>} />
                 <Route path="seller" element={<SellerPage/>} />
                 <Route path="client" element={<ClientPage/>} />
                 <Route path="user" element={<UserPage />} />

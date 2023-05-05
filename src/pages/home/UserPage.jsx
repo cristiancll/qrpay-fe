@@ -82,6 +82,9 @@ const UserPage = () => {
     }
     const handleChange = (e) => {
         const {name, value} = e.target;
+        if (!Check.Input.valid(e)) {
+            return;
+        }
         setForm({
             ...form,
             [name]: {
