@@ -1,5 +1,5 @@
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,8 +12,12 @@ const BottomBar = () => {
     const auth = useAuthentication()
     const location = useLocation()
     const navigate = useNavigate()
-    const path = location.pathname.slice(1)
-    const [value, setValue] = useState(path);
+    const [value, setValue] = useState(location.pathname.slice(1));
+    useEffect(() => {
+        setValue(location.pathname.slice(1))
+    }, [location]);
+
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
         navigate("/" + newValue)

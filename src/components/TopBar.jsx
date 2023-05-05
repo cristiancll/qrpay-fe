@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import {useNavigate} from "react-router-dom";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
-
+import QrCode2Icon from "@mui/icons-material/QrCode2";
 const TopBar = () => {
     const auth = useAuthentication()
     const navigate = useNavigate()
@@ -25,7 +25,8 @@ const TopBar = () => {
         <Box sx={{flexGrow: 1, width: "100%"}}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <QrCode2Icon sx={{fontSize: "3rem"}}/>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1, fontSize: "2rem", marginLeft: "10px"}}>
                         QR Pay
                     </Typography>
                     <IconButton
@@ -54,6 +55,7 @@ const TopBar = () => {
                         onClose={() => setAnchorEl(null)}
                     >
                         <MenuItem onClick={() => handleNavigate("/user")}>Minha Conta</MenuItem>
+                        <MenuItem onClick={() => handleNavigate("/about")}>Sobre</MenuItem>
                         <MenuItem onClick={() => handleNavigate("/logout")}>Sair</MenuItem>
                     </Menu>
                 </Toolbar>

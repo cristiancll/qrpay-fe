@@ -63,7 +63,7 @@ const ResetPasswordPage = () => {
     }
 
     return (
-        <OptionsColumn>
+        <OptionsColumn middle>
             <PageHeader
                 text="Recuperar Senha"
                 variant="h3"

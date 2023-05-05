@@ -35,15 +35,15 @@ const UserPage = () => {
     const validateInputs = () => {
         let ok = true;
         const update = form;
-        if (form.name.value === "") {
+        if (!form.name.value || form.name.value === "") {
             update.name.error = Error.MANDATORY_FIELD;
             ok = false;
         }
-        if (form.phone.value === "") {
+        if (!form.email.value || form.phone.value === "") {
             update.phone.error = Error.MANDATORY_FIELD;
             ok = false;
         }
-        if (form.email.value === "") {
+        if (!form.email.value || form.email.value === "") {
             update.email.error = Error.MANDATORY_FIELD;
             ok = false;
         }

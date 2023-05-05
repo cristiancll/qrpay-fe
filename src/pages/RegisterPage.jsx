@@ -101,7 +101,7 @@ const RegisterPage = () => {
     }
 
     return (
-        <OptionsColumn>
+        <OptionsColumn middle>
             <PageHeader
                 text="Cadastro"
                 variant="h2"

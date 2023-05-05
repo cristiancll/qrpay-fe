@@ -81,7 +81,7 @@ const LoginPage = () => {
     }
 
     return (
-        <OptionsColumn>
+        <OptionsColumn middle>
             <PageHeader
                 text="Login"
             />

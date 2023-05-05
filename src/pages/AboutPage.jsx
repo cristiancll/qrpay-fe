@@ -1,12 +1,14 @@
 import React from 'react';
+import CenterContainer from "../components/CenterContainer.jsx";
 
 const AboutPage = () => {
     return (
-        <div>
-            <h1>About Page</h1>
-            <p>This is the about page.</p>
-
-        </div>
+        <CenterContainer middle>
+            <h1>Créditos</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nunc
+                elit lacinia nunc, vitae aliquam nunc nunc sit amet nisl. Donec euismod, nisl eget ultricies aliquam,
+            </p>
+        </CenterContainer>
     );
 };
 

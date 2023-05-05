@@ -2,12 +2,12 @@ import {Grid} from "@mui/material";
 import React from 'react';
 import CenterContainer from "./CenterContainer.jsx";
 
-const OptionsColumn = ({children}) => {
+const OptionsColumn = ({middle = false, children}) => {
     if (!children) {
         return null
     }
     return (
-        <CenterContainer>
+        <CenterContainer middle={middle}>
             <Grid
                 container
                 justifyContent="center"
