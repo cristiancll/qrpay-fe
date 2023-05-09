@@ -8,35 +8,29 @@ const UserAccess = {
 
 const Auth = {
     isAdmin: (auth) => {
-        return true;
-        // const u = auth.user;
-        // return u && (u.access & UserAccess.ADMIN) === UserAccess.ADMIN;
+        const u = auth.user;
+        return u && (u.role & UserAccess.ADMIN) === UserAccess.ADMIN;
     },
     isManager: (auth) => {
-        return true;
-        // const u = auth.user;
-        // return u && (u.access & UserAccess.MANAGER) === UserAccess.MANAGER;
+        const u = auth.user;
+        return u && (u.role & UserAccess.MANAGER) === UserAccess.MANAGER;
     },
     isBilling: (auth) => {
-        return true;
-        // const u = auth.user;
-        // return u && (u.access & UserAccess.BILLING) === UserAccess.BILLING;
+        const u = auth.user;
+        return u && (u.role & UserAccess.BILLING) === UserAccess.BILLING;
     },
     isSeller: (auth) => {
-        return true;
-        // const u = auth.user;
-        // return u && (u.access & UserAccess.SELLER) === UserAccess.SELLER;
+        const u = auth.user;
+        return u && (u.role & UserAccess.SELLER) === UserAccess.SELLER;
     },
     isClient: (auth) => {
-        return true;
-        // const u = auth.user;
-        // return u && (u.access & UserAccess.CLIENT) === UserAccess.CLIENT;
+        const u = auth.user;
+        return u && (u.role & UserAccess.CLIENT) === UserAccess.CLIENT;
     },
     isAuthenticated: (auth) => {
-        return true;
-        // const u = auth.user;
-        // return u && u.id;
-    }
+        const u = auth.user;
+        return u && u.uuid;
+    },
 }
 
 export default Auth

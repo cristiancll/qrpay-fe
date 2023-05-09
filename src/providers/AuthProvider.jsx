@@ -1,52 +1,47 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import API from "../api/api.js";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext({})
 
+function getUserFromCookie() {
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+        return JSON.parse(userCookie);
+    }
+    return null;
+}
+
+
 const useAuth = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(getUserFromCookie());
     const navigate = useNavigate();
-
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            axios
-                .get("/api/user", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-                .then((res) => {
-                    setUser(res.data);
-                })
-                .catch((err) => {
-                    localStorage.removeItem("token");
-            });
-        }
-    }, []);
+        const userCookie = getUserFromCookie()
+        setUser(userCookie);
+    }, [])
 
-    const login = (email, password, onError = {}) => {
-        axios
-            .post("/api/login", { email, password })
-            .then((res) => {
-                localStorage.setItem("token", res.data.token);
-                setUser(res.data.user);
-                navigate("/");
-            })
-            .catch((err) => onError(err));
+    const login = (user, password, onError = {}) => {
+        API.Auth.Login({user, password}, (data) => {
+            const user = data.getUser().toObject();
+            Cookies.set('user', JSON.stringify(user));
+            setUser(user);
+            navigate("/");
+        }, onError)
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
-        setUser(null);
-        navigate("/");
+        API.Auth.Logout({}, () => {
+            Cookies.remove('user');
+            setUser(null);
+            navigate("/login");
+        })
     };
     return { user, login, logout };
 }
 const AuthProvider = ({ children }) => {
     const auth = useAuth();
-
     return (
         <AuthContext.Provider value={ auth }>
             {children}
