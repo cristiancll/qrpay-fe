@@ -1,6 +1,7 @@
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import API from "../api/api.js";
 import Check from "../common/check.js";
 import Error from "../common/error.js";
 import ButtonOption from "../components/ButtonOption.jsx";
@@ -76,7 +77,15 @@ const RegisterPage = () => {
     const handleSubmit = () => {
         const ok = validateInputs();
         if (ok) {
-            // TODO: Register
+            const formData = {
+                name: form.name.value,
+                phone: form.phone.value,
+                email: form.email.value,
+                password: form.password.value,
+            }
+            API.User.Create(formData, () => {
+                auth.login(formData.phone, formData.password)
+            });
         }
     }
 

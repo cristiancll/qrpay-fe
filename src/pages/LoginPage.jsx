@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Check from "../common/check.js";
 import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
@@ -9,7 +9,7 @@ import {useAuthentication} from "../providers/AuthProvider.jsx";
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import Error from "../common/error.js";
-
+import Auth from "../common/auth.js";
 
 const LoginPage = () => {
     const navigate = useNavigate()
@@ -24,6 +24,17 @@ const LoginPage = () => {
             error: null,
         }
     });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (Auth.isAuthenticated(auth)) {
+            navigate("/");
+            return;
+        }
+        setLoading(false)
+
+    }, [])
+
 
     const validateInputs = () => {
         let ok = true;
@@ -84,6 +95,9 @@ const LoginPage = () => {
 
     }
 
+    if (loading) {
+        return null;
+    }
     return (
         <OptionsColumn middle>
             <PageHeader
