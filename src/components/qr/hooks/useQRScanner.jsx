@@ -1,6 +1,6 @@
 import QrScanner from "qr-scanner";
 import {useEffect, useRef, useState} from "react";
-import {CameraNotFound, injectCameraConstraints} from "./common.js";
+import {CameraNotFound, injectCameraConstraints} from "../common.js";
 
 const useQRScanner = (viewport) => {
     const [allowed, setAllowed] = useState(true)

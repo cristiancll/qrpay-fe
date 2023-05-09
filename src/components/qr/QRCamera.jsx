@@ -1,5 +1,5 @@
 import React from "react";
-import useQRScanner from "./useQRScanner.jsx";
+import useQRScanner from "./hooks/useQRScanner.jsx";
 import useViewport from "./hooks/useViewport.jsx";
 import NoCamera from "./NoCamera.jsx";
 import "./overlay.css"
