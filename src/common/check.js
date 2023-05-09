@@ -1,19 +1,14 @@
-function validateNumber(e) {
-    const {value} = e.target;
-    return isNaN(value);
-}
-
 
 const Check = {
     Input: {
-        valid: (e) => {
-            const {type} = e.target;
+        sanitize: (e) => {
+            const {type, value} = e.target;
             switch (type) {
                 case 'number':
                 case 'tel':
-                    return validateNumber(e);
+                    return value.replace(/[^\d]/g, "");
                 default:
-                    return true;
+                    return value;
             }
         },
     }

@@ -72,30 +72,6 @@ const UserPage = () => {
         // TODO: implementar delete
     }
 
-    const handleBlur = (e) => {
-        const {name, value} = e.target;
-        const update = form;
-        update[name].error = (value === "") ? Error.MANDATORY_FIELD : null;
-        setForm({
-            ...form,
-            ...update
-        })
-    }
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        if (!Check.Input.valid(e)) {
-            return;
-        }
-        setForm({
-            ...form,
-            [name]: {
-                ...form[name],
-                value: value,
-            }
-        })
-
-    }
-
     return (
         <OptionsColumn>
             <PageHeader variant={"h2"} text="Minha Conta"/>
@@ -103,29 +79,25 @@ const UserPage = () => {
                 label="Nome"
                 type="text"
                 id="name"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <FormField
                 label="Telefone"
                 type="text"
                 id="phone"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <FormField
                 label="Email"
                 type="email"
                 id="email"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <FormField
                 label="Senha"
                 type="password"
                 id="password"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <ButtonOption
                 text="Atualizar"

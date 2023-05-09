@@ -4,7 +4,6 @@ import ButtonOption from "../../../components/ButtonOption.jsx";
 import FormField from "../../../components/FormField.jsx";
 import OptionsColumn from "../../../components/OptionsColumn.jsx";
 import PageHeader from "../../../components/PageHeader.jsx";
-import Check from "../../../common/check.js";
 
 const CreateClient = () => {
     const [form, setForm] = useState({
@@ -45,29 +44,6 @@ const CreateClient = () => {
         }
     }
 
-    const handleBlur = (e) => {
-        const {name, value} = e.target;
-        const update = form;
-        update[name].error = (value === "") ? Error.MANDATORY_FIELD : null;
-        setForm({
-            ...form,
-            ...update
-        })
-    }
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        if (!Check.Input.valid(e)) {
-            return;
-        }
-        setForm({
-            ...form,
-            [name]: {
-                ...form[name],
-                value: value,
-            }
-        })
-    }
-
     return (
         <OptionsColumn>
             <PageHeader
@@ -78,15 +54,13 @@ const CreateClient = () => {
                 label="Nome"
                 type="text"
                 id="name"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <FormField
                 label="Telefone"
                 type="tel"
                 id="phone"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <ButtonOption
                 text="Cadastrar"

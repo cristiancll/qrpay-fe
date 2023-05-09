@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Check from "../common/check.js";
 import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
 import FormField from "../components/FormField.jsx";
@@ -71,30 +70,6 @@ const LoginPage = () => {
         }
     }
 
-    const handleBlur = (e) => {
-        const {name, value} = e.target;
-        const update = form;
-        update[name].error = (value === "") ? Error.MANDATORY_FIELD : null;
-        setForm({
-            ...form,
-            ...update
-        })
-    }
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        if (!Check.Input.valid(e)) {
-            return;
-        }
-        setForm({
-            ...form,
-            [name]: {
-                ...form[name],
-                value: value,
-            }
-        })
-
-    }
-
     if (loading) {
         return null;
     }
@@ -107,15 +82,13 @@ const LoginPage = () => {
                 label="Usuário"
                 type="text"
                 id="user"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <FormField
                 label="Senha"
                 type="password"
                 id="password"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <ButtonOption
                 text="Entrar"

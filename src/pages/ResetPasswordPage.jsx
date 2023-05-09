@@ -1,7 +1,6 @@
 import {Button, Grid, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import Check from "../common/check.js";
 import Error from "../common/error.js";
 import ButtonOption from "../components/ButtonOption.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
@@ -42,30 +41,6 @@ const ResetPasswordPage = () => {
         }
     }
 
-    const handleBlur = (e) => {
-        const {name, value} = e.target;
-        const update = form;
-        update[name].error = (value === "") ? Error.MANDATORY_FIELD : null;
-        setForm({
-            ...form,
-            ...update
-        })
-    }
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        if (!Check.Input.valid(e)) {
-            return;
-        }
-        setForm({
-            ...form,
-            [name]: {
-                ...form[name],
-                value: value,
-            }
-        })
-
-    }
-
     return (
         <OptionsColumn middle>
             <PageHeader
@@ -76,8 +51,7 @@ const ResetPasswordPage = () => {
                 label="Usuário"
                 type="text"
                 id="user"
-                form={form}
-                events={{handleChange, handleBlur}}
+                formState={[form, setForm]}
             />
             <ButtonOption
                 text="Enviar E-mail"
