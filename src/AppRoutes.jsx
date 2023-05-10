@@ -15,7 +15,6 @@ import LoginPage from "./pages/LoginPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
-import VerifyEmailPage from "./pages/VerifyEmailPage.jsx";
 
 function AppRoutes() {
   return (
@@ -35,7 +34,6 @@ function AppRoutes() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/verify-email" element={<VerifyEmailPage />} />
           <Route path="*" element={<NotFoundPage />} />
       </Routes>
   );

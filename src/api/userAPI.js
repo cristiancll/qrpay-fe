@@ -11,7 +11,6 @@ const UserAPI = {
         const request = new UserCreateRequest();
         request.setName(data.name);
         request.setPhone(data.phone);
-        request.setEmail(data.email);
         request.setPassword(data.password);
         service.create(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },
@@ -32,7 +31,6 @@ const UserAPI = {
         request.setUuid(data.uuid);
         request.setName(data.name);
         request.setPhone(data.phone);
-        request.setEmail(data.email);
         service.update(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },
     Delete: (data, onSuccess, onError) => {

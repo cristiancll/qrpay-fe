@@ -22,10 +22,6 @@ const RegisterPage = () => {
             value: "",
             error: null,
         },
-        email: {
-            value: "",
-            error: null,
-        },
         password: {
             value: "",
             error: null,
@@ -45,10 +41,6 @@ const RegisterPage = () => {
         }
         if (form.phone.value === "") {
             update.phone.error = Error.MANDATORY_FIELD;
-            ok = false;
-        }
-        if (form.email.value === "") {
-            update.email.error = Error.MANDATORY_FIELD;
             ok = false;
         }
         if (form.password.value === "") {
@@ -79,7 +71,6 @@ const RegisterPage = () => {
             const formData = {
                 name: form.name.value,
                 phone: form.phone.value,
-                email: form.email.value,
                 password: form.password.value,
             }
             API.User.Create(formData, () => {
@@ -104,12 +95,6 @@ const RegisterPage = () => {
                 label="Telefone"
                 type="tel"
                 id="phone"
-                formState={[form, setForm]}
-            />
-            <FormField
-                label="Email"
-                type="email"
-                id="email"
                 formState={[form, setForm]}
             />
             <FormField

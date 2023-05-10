@@ -23,10 +23,6 @@ const UserPage = () => {
             value: user.phone,
             error: null,
         },
-        email: {
-            value: user.email,
-            error: null,
-        },
         password: {
             value: "",
             error: null,
@@ -40,12 +36,8 @@ const UserPage = () => {
             update.name.error = Error.MANDATORY_FIELD;
             ok = false;
         }
-        if (!form.email.value || form.phone.value === "") {
+        if (!form.phone.value || form.phone.value === "") {
             update.phone.error = Error.MANDATORY_FIELD;
-            ok = false;
-        }
-        if (!form.email.value || form.email.value === "") {
-            update.email.error = Error.MANDATORY_FIELD;
             ok = false;
         }
         if (form.password.value === "") {
@@ -85,12 +77,6 @@ const UserPage = () => {
                 label="Telefone"
                 type="text"
                 id="phone"
-                formState={[form, setForm]}
-            />
-            <FormField
-                label="Email"
-                type="email"
-                id="email"
                 formState={[form, setForm]}
             />
             <FormField
