@@ -12,7 +12,7 @@ import {useAuthentication} from "../providers/AuthProvider.jsx";
 const ResetPasswordPage = () => {
     const navigate = useNavigate()
     const [form, setForm] = useState({
-        user: {
+        phone: {
             value: "",
             error: null,
         },
@@ -21,8 +21,8 @@ const ResetPasswordPage = () => {
     const validateInputs = () => {
         let ok = true;
         const update = form;
-        if (form.user.value === "") {
-            update.user.error = Error.MANDATORY_FIELD;
+        if (form.phone.value === "") {
+            update.phone.error = Error.MANDATORY_FIELD;
             ok = false;
         }
         if (!ok) {
@@ -48,13 +48,13 @@ const ResetPasswordPage = () => {
                 variant="h3"
             />
             <FormField
-                label="Usuário"
-                type="text"
-                id="user"
+                label="Telefone"
+                type="tel"
+                id="phone"
                 formState={[form, setForm]}
             />
             <ButtonOption
-                text="Enviar E-mail"
+                text="Enviar Whatsapp"
                 onClick={handleSubmit}
             />
         </OptionsColumn>

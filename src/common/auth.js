@@ -31,6 +31,13 @@ const Auth = {
         const u = auth.user;
         return u && u.uuid;
     },
+    isVerified(auth) {
+        const u = auth.user;
+        return u && u.verified;
+    },
+    isDisabled: (auth) => {
+
+    },
 }
 
 export default Auth

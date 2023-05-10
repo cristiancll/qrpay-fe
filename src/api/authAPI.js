@@ -9,7 +9,7 @@ const service = new AuthServiceClient(Config.APIAddress, null, null);
 const AuthAPI = {
     Login: (data, onSuccess, onError) => {
         const request = new AuthLoginRequest();
-        request.setUser(data.user);
+        request.Phone(data.phone);
         request.setPassword(data.password);
         service.login(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },

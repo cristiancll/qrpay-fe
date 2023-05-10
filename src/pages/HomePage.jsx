@@ -38,11 +38,21 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (Auth.isAuthenticated(auth)) {
+        if (!Auth.isAuthenticated(auth)) {
+            navigate("/login")
             setLoading(false);
             return;
         }
-        navigate("/login")
+        if (!Auth.isVerified(auth)) {
+            navigate("/verify")
+            setLoading(false);
+            return;
+        }
+        if (!Auth.isDisabled(auth)) {
+            navigate("/disabled")
+            setLoading(false);
+            return;
+        }
         return () => {
             setLoading(true)
         }

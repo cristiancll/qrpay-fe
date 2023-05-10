@@ -14,7 +14,7 @@ const LoginPage = () => {
     const navigate = useNavigate()
     const auth = useAuthentication();
     const [form, setForm] = useState({
-        user: {
+        phone: {
             value: "",
             error: null,
         },
@@ -38,8 +38,8 @@ const LoginPage = () => {
     const validateInputs = () => {
         let ok = true;
         const update = form;
-        if (form.user.value === "") {
-            update.user.error = Error.MANDATORY_FIELD;
+        if (form.phone.value === "") {
+            update.phone.error = Error.MANDATORY_FIELD;
             ok = false;
         }
         if (form.password.value === "") {
@@ -58,9 +58,9 @@ const LoginPage = () => {
     const handleSubmit = () => {
         const ok = validateInputs();
         if (ok) {
-            auth.login(form.user.value, form.password.value, (err) => {
+            auth.login(form.phone.value, form.password.value, (err) => {
                 const update = form;
-                update.user.error = Error.INVALID_CREDENTIALS;
+                update.phone.error = Error.INVALID_CREDENTIALS;
                 update.password.error = Error.INVALID_CREDENTIALS;
                 setForm({
                     ...form,
@@ -79,9 +79,9 @@ const LoginPage = () => {
                 text="Login"
             />
             <FormField
-                label="Usuário"
+                label="Telefone"
                 type="text"
-                id="user"
+                id="phone"
                 formState={[form, setForm]}
             />
             <FormField
