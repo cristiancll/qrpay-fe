@@ -1,5 +1,5 @@
 {
-  "grpcApi": "http://localhost:8080"
+  "grpcApi": "https://localhost:8443"
 }
 
 

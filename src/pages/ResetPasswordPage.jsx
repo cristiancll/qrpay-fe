@@ -13,7 +13,7 @@ const ResetPasswordPage = () => {
     const navigate = useNavigate()
     const [form, setForm] = useState({
         phone: {
-            value: "",
+            value: "55489",
             error: null,
         },
     });

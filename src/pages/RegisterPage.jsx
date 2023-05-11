@@ -15,7 +15,7 @@ const RegisterPage = () => {
             error: null,
         },
         phone: {
-            value: "",
+            value: "55489",
             error: null,
         },
         password: {

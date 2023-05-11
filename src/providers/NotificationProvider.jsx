@@ -5,7 +5,7 @@ const NotificationContext = createContext({})
 const useNotify = () => {
     const [visible, setVisible] = useState(false);
     const [body, setBody] = useState("");
-    const [severity, setSeverity] = useState("primary");
+    const [severity, setSeverity] = useState("info");
     const [title, setTitle] = useState("");
     function show(title, body, severity) {
         setVisible(true);

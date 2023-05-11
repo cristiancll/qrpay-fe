@@ -41,7 +41,7 @@ const LoginPage = () => {
     const alertMsg = searchParams.get("a");
     const [form, setForm] = useState({
         phone: {
-            value: "",
+            value: "55489",
             error: null,
         },
         password: {
@@ -110,7 +110,7 @@ const LoginPage = () => {
                 />
                 <FormField
                     label="Telefone"
-                    type="text"
+                    type="tel"
                     id="phone"
                     formState={[form, setForm]}
                 />

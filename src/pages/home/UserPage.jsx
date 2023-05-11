@@ -97,7 +97,7 @@ const UserPage = () => {
             <FormField
                 disabled
                 label="Telefone"
-                type="text"
+                type="tel"
                 id="phone"
                 formState={[form, setForm]}
             />
