@@ -4,7 +4,9 @@ import API from "./api.js";
 const {UserServiceClient} = require("./proto/user_grpc_web_pb.js");
 const {UserCreateRequest, UserGetRequest, UserAdminCreatedRequest, UserUpdateRequest, UserDeleteRequest, UserListRequest} = require("./proto/user_pb.js");
 
-const service = new UserServiceClient(Config.APIAddress, null, null);
+const service = new UserServiceClient(Config.APIAddress, null, {
+    'withCredentials': true
+});
 
 const UserAPI = {
     Create: (data, onSuccess, onError) => {
@@ -31,6 +33,7 @@ const UserAPI = {
         request.setUuid(data.uuid);
         request.setName(data.name);
         request.setPhone(data.phone);
+        request.setPassword(data.password);
         service.update(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },
     Delete: (data, onSuccess, onError) => {
