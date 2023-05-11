@@ -1,7 +1,9 @@
-import {Container, useMediaQuery, useTheme} from "@mui/material";
+import {Alert, Container, useMediaQuery, useTheme} from "@mui/material";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
+import Cookies from "js-cookie";
 import React, {useEffect, useState} from 'react';
+import API from "../api/api.js";
 import CenterContainer from "../components/CenterContainer.jsx";
 import {Outlet, useNavigate} from "react-router-dom";
 import Loading from "../components/Loading.jsx";
@@ -11,6 +13,8 @@ import {useAuthentication} from "../providers/AuthProvider.jsx";
 import Grid from "@mui/material/Unstable_Grid2";
 import CssBaseLine from "@mui/material/CssBaseline";
 import Auth from "../common/auth.js";
+import Notification from "../components/Notification.jsx";
+import NotificationProvider from "../providers/NotificationProvider.jsx";
 
 const OutletContainer = ({children}) => {
     const css = {
@@ -25,9 +29,11 @@ const OutletContainer = ({children}) => {
             alignItems="center"
             style={css}
         >
+            <NotificationProvider>
             <Grid sx={{width: "100%"}}>
                 <Box textAlign="center">{children}</Box>
             </Grid>
+            </NotificationProvider>
         </Grid>
     );
 };
@@ -36,26 +42,11 @@ const HomePage = () => {
     const auth = useAuthentication()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         if (!Auth.isAuthenticated(auth)) {
             navigate("/login")
-            setLoading(false);
-            return;
         }
-        if (!Auth.isVerified(auth)) {
-            navigate("/verify")
-            setLoading(false);
-            return;
-        }
-        if (!Auth.isDisabled(auth)) {
-            navigate("/disabled")
-            setLoading(false);
-            return;
-        }
-        return () => {
-            setLoading(true)
-        }
+        setLoading(false);
     }, [navigate]);
 
     if (loading) {
@@ -66,11 +57,12 @@ const HomePage = () => {
             <CssBaseline/>
             <TopBar/>
             <OutletContainer>
-                <Outlet/>
+
+                    <Outlet/>
+
             </OutletContainer>
             <BottomBar/>
         </>
-
     );
 };
 
