@@ -1,18 +1,14 @@
-import {Button, Grid, TextField, Typography} from "@mui/material";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import API from "../api/api.js";
-import Check from "../common/check.js";
 import Error from "../common/error.js";
 import ButtonOption from "../components/ButtonOption.jsx";
-import CenterContainer from "../components/CenterContainer.jsx";
 import FormField from "../components/FormField.jsx";
 import OptionsColumn from "../components/OptionsColumn.jsx";
 import PageHeader from "../components/PageHeader.jsx";
-import {useAuthentication} from "../providers/AuthProvider.jsx";
 
 const RegisterPage = () => {
-    const auth = useAuthentication();
+    const navigate = useNavigate()
     const [form, setForm] = useState({
         name: {
             value: "",
@@ -74,7 +70,7 @@ const RegisterPage = () => {
                 password: form.password.value,
             }
             API.User.Create(formData, () => {
-                auth.login(formData.phone, formData.password)
+                navigate("/login?a=verify")
             });
         }
     }

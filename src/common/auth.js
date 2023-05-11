@@ -32,11 +32,12 @@ const Auth = {
         return u && u.uuid;
     },
     isVerified(auth) {
-        const u = auth.user;
+        const u = auth.auth;
         return u && u.verified;
     },
     isDisabled: (auth) => {
-
+        const u = auth.user;
+        return u && u.disabled;
     },
 }
 

@@ -1,49 +1,30 @@
-import HomeIcon from "@mui/icons-material/Home.js";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn.js";
-import {IconButton, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import Auth from "../common/auth.js";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
 import CenterContainer from "../components/CenterContainer.jsx";
+import {useNavigate} from "react-router-dom";
+import Auth from "../common/auth.js";
 
 const LogoutPage = () => {
     const auth = useAuthentication();
-    const navigate = useNavigate();
-    const [countdown, setCountdown] = useState(3);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
+    const navigate = useNavigate()
     useEffect(() => {
-        if (Auth.isAuthenticated(auth)) {
-            setLoading(false);
+        if (!Auth.isAuthenticated(auth)) {
+            navigate("/login");
             return;
         }
-        navigate("/login");
-    }, [navigate]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCountdown(countdown - 1);
-        }, 1000);
-        if (countdown === 0) {
-            auth.logout();
-        }
-        return () => clearInterval(interval);
-    }, [countdown]);
-
-    if (loading) {
+        setIsLoading(false)
+        auth.logout()
+    }, []);
+    if (isLoading) {
         return null;
     }
     return (
         <CenterContainer middle>
             <Typography variant="h6" color={"#BDBDBD"}>
-                Você será deslogado em {countdown} segundos
+                Você será deslogado do sistema...
             </Typography>
-            <IconButton onClick={() => navigate("/")}>
-                <HomeIcon/>
-            </IconButton>
-            <IconButton onClick={() => navigate(-1)}>
-                <KeyboardReturnIcon/>
-            </IconButton>
         </CenterContainer>
     );
 };

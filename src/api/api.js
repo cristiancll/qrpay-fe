@@ -15,23 +15,18 @@ const API = {
 
     getMetadata: () => {
         return {
-            "Authorization": "Bearer " + localStorage.getItem("token")
         }
     },
     handleResponse: (err, onError, response, onSuccess) => {
         if (err) {
-            if (err.code === StatusCode.UNAUTHENTICATED) {
-                window.location.href = "/login"
-                return
-            }
-            if (!onError) {
+            if (!onError || typeof onError !== "function") {
                 onErrorDefault(err)
                 return
             }
             onError(err)
             return
         }
-        if (!onSuccess) {
+        if (!onSuccess || typeof onSuccess !== "function") {
             onSuccessDefault()
             return
         }

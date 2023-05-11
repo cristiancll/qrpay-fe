@@ -1,3 +1,4 @@
+import {StatusCode} from "grpc-web";
 import {createContext, useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import API from "../api/api.js";
@@ -13,38 +14,55 @@ function getUserFromCookie() {
     return null;
 }
 
-
 const useAuth = () => {
     const [user, setUser] = useState(getUserFromCookie());
     const navigate = useNavigate();
-    useEffect(() => {
-        const userCookie = getUserFromCookie()
-        setUser(userCookie);
-    }, [])
+    const [isLoading, setLoading] = useState(true);
 
-    const login = (user, password, onError = {}) => {
-        API.Auth.Login({user, password}, (data) => {
-            const user = data.getUser().toObject();
-            Cookies.set('user', JSON.stringify(user));
-            setUser(user);
+    const login = (phone, password, onError = {}) => {
+        API.Auth.Login({phone, password}, (data) => {
+            const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
+            Cookies.set('user', JSON.stringify(u));
+            setUser(u);
             navigate("/");
         }, onError)
     };
 
     const logout = () => {
-        API.Auth.Logout({}, () => {
+        const handleLogout = (r) => {
             Cookies.remove('user');
             setUser(null);
             navigate("/login");
-        })
+        }
+        API.Auth.Logout({}, handleLogout, handleLogout)
     };
-    return { user, login, logout };
+
+    useEffect(() => {
+        if (!user) {
+            setLoading(false)
+            return;
+        }
+        setLoading(true)
+        API.Auth.Heartbeat({}, (data) => {
+            const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
+            Cookies.set('user', JSON.stringify(u));
+            setUser(u)
+            setLoading(false)
+        }, (err) => {
+            if (err.code === StatusCode.UNAUTHENTICATED) {
+                logout()
+            }
+        })
+    }, [navigate])
+
+
+    return { user, login, logout, isLoading };
 }
 const AuthProvider = ({ children }) => {
     const auth = useAuth();
     return (
-        <AuthContext.Provider value={ auth }>
-            {children}
+        <AuthContext.Provider value={ {user: auth.user, login: auth.login, logout: auth.logout} }>
+            {!auth.isLoading && children}
         </AuthContext.Provider>
     )
 }
