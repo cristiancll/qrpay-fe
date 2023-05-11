@@ -25,7 +25,13 @@ message AuthLoginResponse {
   Auth auth = 2;
 }
 
+message AuthHeartbeatResponse {
+  User user = 1;
+  Auth auth = 2;
+}
+
 service AuthService {
   rpc Login(AuthLoginRequest) returns (AuthLoginResponse);
   rpc Logout(AuthVoid) returns (AuthVoid);
+  rpc Heartbeat(AuthVoid) returns (AuthHeartbeatResponse);
 }

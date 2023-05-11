@@ -1405,7 +1405,8 @@ proto.proto.UserUpdateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     name: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    phone: jspb.Message.getFieldWithDefault(msg, 4, "")
+    phone: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    password: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -1454,6 +1455,10 @@ proto.proto.UserUpdateRequest.deserializeBinaryFromReader = function(msg, reader
       var value = /** @type {string} */ (reader.readString());
       msg.setPhone(value);
       break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPassword(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1501,6 +1506,13 @@ proto.proto.UserUpdateRequest.serializeBinaryToWriter = function(message, writer
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = message.getPassword();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -1558,6 +1570,24 @@ proto.proto.UserUpdateRequest.prototype.getPhone = function() {
  */
 proto.proto.UserUpdateRequest.prototype.setPhone = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string password = 5;
+ * @return {string}
+ */
+proto.proto.UserUpdateRequest.prototype.getPassword = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.proto.UserUpdateRequest} returns this
+ */
+proto.proto.UserUpdateRequest.prototype.setPassword = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 

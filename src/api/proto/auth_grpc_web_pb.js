@@ -200,5 +200,66 @@ proto.proto.AuthServicePromiseClient.prototype.logout =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.proto.AuthVoid,
+ *   !proto.proto.AuthHeartbeatResponse>}
+ */
+const methodDescriptor_AuthService_Heartbeat = new grpc.web.MethodDescriptor(
+  '/proto.AuthService/Heartbeat',
+  grpc.web.MethodType.UNARY,
+  proto.proto.AuthVoid,
+  proto.proto.AuthHeartbeatResponse,
+  /**
+   * @param {!proto.proto.AuthVoid} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.proto.AuthHeartbeatResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.proto.AuthVoid} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.proto.AuthHeartbeatResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.AuthHeartbeatResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.proto.AuthServiceClient.prototype.heartbeat =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/proto.AuthService/Heartbeat',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Heartbeat,
+      callback);
+};
+
+
+/**
+ * @param {!proto.proto.AuthVoid} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.proto.AuthHeartbeatResponse>}
+ *     Promise that resolves to the response
+ */
+proto.proto.AuthServicePromiseClient.prototype.heartbeat =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/proto.AuthService/Heartbeat',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Heartbeat);
+};
+
+
 module.exports = proto.proto;
 
