@@ -2,8 +2,9 @@ import {Grid, TextField} from "@mui/material";
 import React from 'react';
 import Check from "../common/check.js";
 import Error from "../common/error.js";
+import {useAuthentication} from "../providers/AuthProvider.jsx";
 
-const FormField = ({label, type, id, formState}) => {
+const FormField = ({label, type, id, formState, disabled}) => {
     const [form, setForm] = formState;
     const handleBlur = (e) => {
         const {name, value} = e.target;
@@ -29,6 +30,7 @@ const FormField = ({label, type, id, formState}) => {
     return (
         <Grid item xs={12} md={3} sx={{width: "100%"}} >
             <TextField
+                disabled={disabled}
                 label={label}
                 type={type}
                 name={id}

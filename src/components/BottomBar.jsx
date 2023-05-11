@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 import PaidIcon from '@mui/icons-material/Paid';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
@@ -31,22 +31,22 @@ const BottomBar = () => {
                 icon={<AdminPanelSettingsIcon/>}
             />
             <BottomNavigationAction
-                label="Gerencia"
+                label="Entrega"
                 value="manager"
                 disabled={!Auth.isManager(auth)}
                 icon={<SupervisorAccountIcon/>}
+            />
+            <BottomNavigationAction
+                label="Balcão"
+                value="seller"
+                disabled={!Auth.isSeller(auth)}
+                icon={<FastfoodIcon/>}
             />
             <BottomNavigationAction
                 label="Caixa"
                 value="billing"
                 disabled={!Auth.isBilling(auth)}
                 icon={<PaidIcon/>}
-            />
-            <BottomNavigationAction
-                label="Venda"
-                value="seller"
-                disabled={!Auth.isSeller(auth)}
-                icon={<StorefrontIcon/>}
             />
             <BottomNavigationAction
                 label="Cliente"
