@@ -1,8 +1,8 @@
 import Config from "../config/config.js";
 import API from "./api.js";
 
-const {AuthServiceClient} = require("./proto/auth_grpc_web_pb.js");
-const {AuthLoginRequest, AuthVoid} = require("./proto/auth_pb.js");
+const {AuthServiceClient} = require("./proto/generated/auth_grpc_web_pb.js");
+const {AuthLoginRequest, AuthVoid} = require("./proto/generated/auth_pb.js");
 
 const service = new AuthServiceClient(Config.APIAddress, null, {
     'withCredentials': true

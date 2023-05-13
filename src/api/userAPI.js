@@ -1,8 +1,8 @@
 import Config from "../config/config.js";
 import API from "./api.js";
 
-const {UserServiceClient} = require("./proto/user_grpc_web_pb.js");
-const {UserCreateRequest, UserGetRequest, UserAdminCreatedRequest, UserUpdateRequest, UserDeleteRequest, UserListRequest} = require("./proto/user_pb.js");
+const {UserServiceClient} = require("./proto/generated/user_grpc_web_pb.js");
+const {UserCreateRequest, UserGetRequest, UserAdminCreatedRequest, UserUpdateRequest, UserDeleteRequest, UserListRequest} = require("./proto/generated/user_pb.js");
 
 const service = new UserServiceClient(Config.APIAddress, null, {
     'withCredentials': true

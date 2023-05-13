@@ -20,8 +20,6 @@ const grpc = {};
 grpc.web = require('grpc-web');
 
 
-var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js')
-
 var user_pb = require('./user_pb.js')
 const proto = {};
 proto.proto = require('./auth_pb.js');
