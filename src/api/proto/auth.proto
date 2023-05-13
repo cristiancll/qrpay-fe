@@ -4,9 +4,7 @@ package proto;
 
 option go_package = "github.com/cristiancll/qrpay-be/proto";
 
-import "google/protobuf/timestamp.proto";
 import "user.proto";
-
 
 message Auth {
   bool verified = 1;
@@ -18,8 +16,6 @@ message AuthLoginRequest {
   string password = 2;
 }
 
-message AuthVoid {}
-
 message AuthLoginResponse {
   User user = 1;
   Auth auth = 2;
@@ -29,6 +25,9 @@ message AuthHeartbeatResponse {
   User user = 1;
   Auth auth = 2;
 }
+
+message AuthVoid {}
+
 
 service AuthService {
   rpc Login(AuthLoginRequest) returns (AuthLoginResponse);
