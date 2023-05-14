@@ -13,12 +13,13 @@ import {useAuthentication} from "../providers/AuthProvider.jsx";
 import Grid from "@mui/material/Unstable_Grid2";
 import CssBaseLine from "@mui/material/CssBaseline";
 import Auth from "../common/auth.js";
-import Notification from "../components/Notification.jsx";
 import NotificationProvider from "../providers/NotificationProvider.jsx";
 
 const OutletContainer = ({children}) => {
+    const auth = useAuthentication()
+    const barsHeight = Auth.onlyOneRole(auth) ? 64 : 120;
     const css = {
-        height: "calc(100vh - 112px)",
+        height: `calc(100vh - ${barsHeight}px)`,
         width: "100%",
         overflow: "auto",
     }

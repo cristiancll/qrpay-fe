@@ -11,6 +11,7 @@
     "grpc-tools": "^1.12.4",
     "grpc-web": "^1.4.2",
     "js-cookie": "^3.0.5",
+    "mui-datatables": "^4.3.0",
     "npm-check": "^6.0.1",
     "protoc-gen-js": "^3.21.2",
     "qr-scanner": "^1.4.2",

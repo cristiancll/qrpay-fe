@@ -1,7 +1,7 @@
 import {Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import React from 'react';
 
-const ConfirmDialog = ({ openState, onConfirm = () => {}, title = "Confirmação necessária", text = "Você deseja confirmar a ação?", danger = false}) => {
+const UpdateDialog = ({ openState, onConfirm = () => {}, title = "Atualizar Dados"}) => {
     const [open, setOpen] = openState;
     const handleClose = (e) => {
         setOpen(false);
@@ -24,12 +24,12 @@ const ConfirmDialog = ({ openState, onConfirm = () => {}, title = "Confirmação
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    { text }
+
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancelar</Button>
-                <Button onClick={handleConfirm} autoFocus color={danger ? "error" : "success"}>
+                <Button onClick={handleConfirm} autoFocus color={"success"}>
                     Confirmar
                 </Button>
             </DialogActions>
@@ -37,4 +37,4 @@ const ConfirmDialog = ({ openState, onConfirm = () => {}, title = "Confirmação
     );
 };
 
-export default ConfirmDialog;
+export default UpdateDialog;

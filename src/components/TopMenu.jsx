@@ -40,11 +40,9 @@ const TopMenu = ({anchorElState}) => {
 const Options = ({options, handleNavigate}) => {
     return (
         <>
-            {
-                Object.keys(options).map((path) =>
-                    <MenuItem onClick={() => handleNavigate(path)}>{options[path]}</MenuItem>
-                )
-            }
+            { Object.keys(options).map((path) =>
+                    <MenuItem key={path} onClick={() => handleNavigate(path)}>{options[path]}</MenuItem>
+            )}
         </>
     )
 }

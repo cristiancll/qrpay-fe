@@ -1,5 +1,6 @@
 import UserAPI from "./userAPI.js";
 import AuthAPI from "./authAPI.js";
+import CategoryAPI from "./categoryAPI.js";
 
 const { StatusCode } = require('grpc-web');
 function onErrorDefault(err) {
@@ -12,6 +13,7 @@ function onSuccessDefault() {
 const API = {
     User: UserAPI,
     Auth: AuthAPI,
+    Category: CategoryAPI,
 
     getMetadata: () => {
         return {
