@@ -17,7 +17,9 @@ const BottomBar = () => {
         setValue(location.pathname.slice(1))
     }, [location]);
 
-
+    if (Auth.onlyOneRole(auth)) {
+        return null
+    }
     const handleChange = (event, newValue) => {
         setValue(newValue);
         navigate("/" + newValue)

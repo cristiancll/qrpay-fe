@@ -4,23 +4,12 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import {useNavigate} from "react-router-dom";
-import {useAuthentication} from "../providers/AuthProvider.jsx";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
+import TopMenu from "./TopMenu";
+
 const TopBar = () => {
-    const auth = useAuthentication()
-    const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleNavigate = (path) => {
-        setAnchorEl(null)
-        navigate(path)
-    }
-
     return (
         <Box sx={{flexGrow: 1, width: "100%"}}>
             <AppBar position="static">
@@ -39,25 +28,9 @@ const TopBar = () => {
                     >
                         <AccountCircle/>
                     </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={Boolean(anchorEl)}
-                        onClose={() => setAnchorEl(null)}
-                    >
-                        <MenuItem onClick={() => handleNavigate("/user")}>Minha Conta</MenuItem>
-                        <MenuItem onClick={() => handleNavigate("/about")}>Sobre</MenuItem>
-                        <MenuItem onClick={() => handleNavigate("/logout")}>Sair</MenuItem>
-                    </Menu>
+                    <TopMenu
+                        anchorElState={[anchorEl, setAnchorEl]}
+                    />
                 </Toolbar>
             </AppBar>
         </Box>

@@ -15,6 +15,11 @@ import LoginPage from "./pages/LoginPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
+import ItemPage from "./pages/home/admin/ItemPage";
+import CategoryPage from "./pages/home/admin/CategoryPage";
+import SkuPage from "./pages/home/admin/SkuPage";
+import StockPage from "./pages/home/admin/StockPage";
+import UsersPage from "./pages/home/admin/UsersPage";
 
 function AppRoutes() {
   return (
@@ -27,6 +32,12 @@ function AppRoutes() {
                 <Route path="seller" element={<SellerPage/>} />
                 <Route path="client" element={<ClientPage/>} />
                 <Route path="user" element={<UserPage />} />
+
+                <Route path="admin/category" element={<CategoryPage />} />
+                <Route path="admin/item" element={<ItemPage />} />
+                <Route path="admin/sku" element={<SkuPage />} />
+                <Route path="admin/stock" element={<StockPage />} />
+                <Route path="admin/users" element={<UsersPage />} />
             </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<LogoutPage />} />
