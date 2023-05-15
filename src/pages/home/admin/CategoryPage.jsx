@@ -1,13 +1,19 @@
+import CssBaseLine from "@mui/material/CssBaseline";
 import React, {useEffect, useState} from 'react';
+import OutletContainer from "../../../components/OutletContainer.jsx";
 import {useAuthentication} from "../../../providers/AuthProvider";
 import Auth from "../../../common/auth";
+import {useNotification} from "../../../providers/NotificationProvider.jsx";
 import UnauthorizedPage from "../../UnauthorizedPage";
 import AdminTable from "../../../components/AdminTable";
 import API from "../../../api/api";
 import CenterContainer from "../../../components/CenterContainer";
-import AdminContainer from "../../../components/AdminContainer";
 
-const title = "Categorias";
+const entityName = {
+    plural: "Categorias",
+    singular: "Categoria",
+}
+
 const columns = [
     {
         name: "uuid",
@@ -49,7 +55,6 @@ const CategoryPage = () => {
     const auth = useAuthentication()
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState(testData())
-
     // useEffect(() => {
     //     if (Auth.isAdmin(auth)) {
     //         API.Category.List({}, (res) => {
@@ -66,28 +71,47 @@ const CategoryPage = () => {
     if (isLoading) {
         return <div>Loading...</div>
     }
-    const handleEdit = (data) => {
-        console.log("EDIT: ", data)
+    const handleUpdate = (uuid, data) => {
+        console.log("HANDLE UPDATE", uuid, data)
         // API.Category.Update({uuid}, (res) => {
         //
         // })
     }
     const handleDelete = (data) => {
-        console.log("DELETE: ", data)
+        console.log("HANDLE DELETE", data)
         // API.Category.Delete({uuid}, (res) => {
         //
         // })
     }
+
+    const handleCreate = (data) => {
+        console.log("HANDLE CREATE", data)
+        // API.Category.Create({uuid}, (res) => {
+        //
+        // })
+    }
+
+    const structure = [
+        {
+            name: "name",
+            label: "Nome",
+            type: "text",
+        }
+    ];
+
     return (
-        <AdminContainer>
+        <OutletContainer>
             <AdminTable
-                title={title}
+                entityName={entityName}
                 columns={columns}
                 data={data}
-                onEdit={handleEdit}
+                structure={structure}
+                onUpdate={handleUpdate}
                 onDelete={handleDelete}
+                onCreate={handleCreate}
             />
-        </AdminContainer>
+        </OutletContainer>
+
     )
 };
 

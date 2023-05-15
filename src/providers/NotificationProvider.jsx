@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useState} from "react";
 import Notification from "../components/Notification.jsx";
 
 const NotificationContext = createContext({})
@@ -17,7 +17,6 @@ const useNotify = () => {
 }
 const NotificationProvider = ({ children }) => {
     const n = useNotify({});
-    console.log(n)
     return (
         <NotificationContext.Provider value={ {show: n.show} }>
             <Notification visibleState={n.visibleState} body={n.body} severity={n.severity} title={n.title}/>

@@ -65,27 +65,31 @@ const UserPage = () => {
                 password: form.password.value,
             }
             API.User.Update(formData, (data) => {
-                console.log(data);
                 notify.show("", "Conta atualizada!", "success");
             })
         }
     }
 
+    const closeConfirmDialog = () => {
+        setConfirmOpen(false);
+    }
     const handleDelete = () => {
         const uuid = auth.user.uuid
-        API.User.Delete({uuid}, (data) => {
-            console.log(data);
-        })
+        // API.User.Delete({uuid}, (data) => {
+            closeConfirmDialog();
+            // navigate("/login");
+        // })
     }
 
     return (
         <OptionsColumn>
             <ConfirmDialog
-                openState={[confirmOpen, setConfirmOpen]}
                 danger
                 title="Excluir Conta"
                 text="Tem certeza que deseja excluir sua conta?"
-                onConfirm={handleDelete}
+                open={confirmOpen}
+                closeDialog={closeConfirmDialog}
+                confirmDialog={handleDelete}
             />
             <PageHeader variant={"h2"} text="Minha Conta"/>
             <FormField

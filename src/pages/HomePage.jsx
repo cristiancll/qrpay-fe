@@ -14,30 +14,8 @@ import Grid from "@mui/material/Unstable_Grid2";
 import CssBaseLine from "@mui/material/CssBaseline";
 import Auth from "../common/auth.js";
 import NotificationProvider from "../providers/NotificationProvider.jsx";
+import OutletContainer from "../components/OutletContainer.jsx";
 
-const OutletContainer = ({children}) => {
-    const auth = useAuthentication()
-    const barsHeight = Auth.onlyOneRole(auth) ? 64 : 120;
-    const css = {
-        height: `calc(100vh - ${barsHeight}px)`,
-        width: "100%",
-        overflow: "auto",
-    }
-    return (
-        <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            style={css}
-        >
-            <NotificationProvider>
-            <Grid sx={{width: "100%"}}>
-                <Box textAlign="center">{children}</Box>
-            </Grid>
-            </NotificationProvider>
-        </Grid>
-    );
-};
 
 const HomePage = () => {
     const auth = useAuthentication()
@@ -58,9 +36,7 @@ const HomePage = () => {
             <CssBaseline/>
             <TopBar/>
             <OutletContainer>
-
-                    <Outlet/>
-
+                <Outlet/>
             </OutletContainer>
             <BottomBar/>
         </>

@@ -12,9 +12,15 @@ const Notification = ({visibleState, body, severity, title}) => {
         return () => clearTimeout(timer);
     }, [visible])
 
+    const css = {
+        width: "100%",
+        position: "absolute",
+        zIndex: 999,
+        top: "56px",
+    };
 
     return (
-        <Collapse in={visible} sx={{width: "100%"}}>
+        <Collapse in={visible} sx={css}>
             <Alert
                 action={
                     <IconButton

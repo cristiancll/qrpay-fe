@@ -1,11 +1,10 @@
 import {Grid, TextField} from "@mui/material";
 import React from 'react';
-import Check from "../common/check.js";
 import Error from "../common/error.js";
 import ReactPhoneInput from 'react-phone-input-material-ui';
 import "react-phone-input-material-ui/lib/style.css";
 
-const FormField = ({label, type, id, formState, disabled, required = true}) => {
+const FormField = ({label, type, id, formState, disabled, required = true, autoFocus = false}) => {
     const [form, setForm] = formState;
     const handleBlur = (value) => {
         if (!required) {
@@ -38,6 +37,7 @@ const FormField = ({label, type, id, formState, disabled, required = true}) => {
         <Grid item xs={12} md={3} sx={{width: "100%"}} >
             { isTel
                 ? <TelephoneField
+                    autoFocus={autoFocus}
                     disabled={disabled}
                     label={label}
                     type={type}
@@ -47,6 +47,7 @@ const FormField = ({label, type, id, formState, disabled, required = true}) => {
                     handleBlur={(e) => handleBlur(e.target.value)}
                     />
                 : <DefaultField
+                    autoFocus={autoFocus}
                     disabled={disabled}
                     label={label}
                     type={type}
@@ -61,9 +62,10 @@ const FormField = ({label, type, id, formState, disabled, required = true}) => {
 };
 
 
-const DefaultField = ({disabled, label, type, id, form, handleChange, handleBlur}) => {
+const DefaultField = ({autoFocus, disabled, label, type, id, form, handleChange, handleBlur}) => {
     return (
         <TextField
+            autoFocus={autoFocus}
             disabled={disabled}
             label={label}
             type={type}

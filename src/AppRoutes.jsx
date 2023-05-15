@@ -1,7 +1,7 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import QRScanner from "./components/qr/QRScanner.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
+import WhatsAppPage from "./pages/home/admin/WhatsAppPage.jsx";
 import BillingPage from "./pages/home/billing/BillingPage.jsx";
 import CreateClient from "./pages/home/billing/CreateClient.jsx";
 import UserPage from "./pages/home/UserPage.jsx";
@@ -26,22 +26,21 @@ function AppRoutes() {
       <Routes>
             <Route path="/" element={<HomePage />}>
                 <Route path="admin" element={<AdminPage />} />
+                <Route path="admin/whatsapp" element={<WhatsAppPage />} />
+                <Route path="admin/category" element={<CategoryPage />} />
+                <Route path="admin/item" element={<ItemPage />} />
+                <Route path="admin/sku" element={<SkuPage />} />
+                <Route path="admin/stock" element={<StockPage />} />
+                <Route path="admin/users" element={<UsersPage />} />
                 <Route path="manager" element={<ManagerPage/>} />
                 <Route path="billing" element={<BillingPage/>} />
                 <Route path="billing/create" element={<CreateClient/>} />
                 <Route path="seller" element={<SellerPage/>} />
                 <Route path="client" element={<ClientPage/>} />
                 <Route path="user" element={<UserPage />} />
-
-                <Route path="admin/category" element={<CategoryPage />} />
-                <Route path="admin/item" element={<ItemPage />} />
-                <Route path="admin/sku" element={<SkuPage />} />
-                <Route path="admin/stock" element={<StockPage />} />
-                <Route path="admin/users" element={<UsersPage />} />
             </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<LogoutPage />} />
-          <Route path="/qr" element={<QRScanner />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/about" element={<AboutPage />} />

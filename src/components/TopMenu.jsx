@@ -61,6 +61,7 @@ const AdminOptions = ({handleNavigate}) => {
         return null
     }
     const options = {
+        "/admin/whatsapp": "Gerenciar WhatsApp",
         "/admin/category": "Gerenciar Categorias",
         "/admin/item": "Gerenciar Itens",
         "/admin/sku": "Gerenciar SKUs",
