@@ -1,5 +1,6 @@
-import CssBaseLine from "@mui/material/CssBaseline";
+import CircularProgress from "@mui/material/CircularProgress";
 import React, {useEffect, useState} from 'react';
+import Utils from "../../../common/utils.js";
 import OutletContainer from "../../../components/OutletContainer.jsx";
 import {useAuthentication} from "../../../providers/AuthProvider";
 import Auth from "../../../common/auth";
@@ -7,7 +8,6 @@ import {useNotification} from "../../../providers/NotificationProvider.jsx";
 import UnauthorizedPage from "../../UnauthorizedPage";
 import AdminTable from "../../../components/AdminTable";
 import API from "../../../api/api";
-import CenterContainer from "../../../components/CenterContainer";
 
 const entityName = {
     plural: "Categorias",
@@ -24,11 +24,11 @@ const columns = [
         label: "Name",
     },
     {
-        name: "created_at",
+        name: "createdAt",
         label: "Criado em",
     },
     {
-        name: "updated_at",
+        name: "updatedAt",
         label: "Atualizado em",
     },
     {
@@ -37,58 +37,52 @@ const columns = [
     }
 ];
 
-function testData() {
-    const data = []
-    for (let i = 0; i < 100; i++) {
-        data.push({
-            uuid: i,
-            name: "Category " + i,
-            created_at: "2021-09-01 12:00:00",
-            updated_at: "2021-09-01 12:00:00",
-            actions: "Ações " + i,
-        })
-    }
-    return data
-}
-
 const CategoryPage = () => {
     const auth = useAuthentication()
-    const [isLoading, setIsLoading] = useState(false)
-    const [data, setData] = useState(testData())
-    // useEffect(() => {
-    //     if (Auth.isAdmin(auth)) {
-    //         API.Category.List({}, (res) => {
-    //             const categoryList = res.getCategoriesList().map((c) => c.toObject())
-    //             setData(categoryList)
-    //             setIsLoading(false)
-    //         })
-    //         setIsLoading(false)
-    //     }
-    // })
+    const notify = useNotification()
+    const [isLoading, setIsLoading] = useState(true)
+    const [tableData, setTableData] = useState([])
+    useEffect(() => {
+        if (Auth.isAdmin(auth)) {
+            API.Category.List({}, (res) => {
+                const categoryList = res.getCategoriesList().map((c) => Utils.sanitizeProto(c))
+                console.log("CATEGORY LIST", categoryList)
+                setTableData(categoryList)
+                setIsLoading(false)
+            })
+        }
+    }, [])
     if (!Auth.isAdmin(auth)) {
         return <UnauthorizedPage/>
     }
     if (isLoading) {
-        return <div>Loading...</div>
+        return <CircularProgress />
     }
-    const handleUpdate = (uuid, data) => {
-        console.log("HANDLE UPDATE", uuid, data)
-        // API.Category.Update({uuid}, (res) => {
-        //
-        // })
+    const handleUpdate = (uuid, formData) => {
+        API.Category.Update({uuid, name: formData.name.value}, (res) => {
+            console.log("UPDATE RESPONSE", res.getCategory().toObject())
+            notify.show("Categoria atualizada com sucesso!", "success")
+            setTableData(tableData.map((c) => {
+                if (c.uuid === uuid) {
+                    return Utils.sanitizeProto(res.getCategory())
+                }
+                return c
+            }))
+        })
     }
-    const handleDelete = (data) => {
-        console.log("HANDLE DELETE", data)
-        // API.Category.Delete({uuid}, (res) => {
-        //
-        // })
+    const handleDelete = (uuid) => {
+        API.Category.Delete({uuid}, (res) => {
+            notify.show("Categoria deletada com sucesso!", "success")
+            setTableData(tableData.filter((c) => c.uuid !== uuid))
+        })
     }
 
-    const handleCreate = (data) => {
-        console.log("HANDLE CREATE", data)
-        // API.Category.Create({uuid}, (res) => {
-        //
-        // })
+    const handleCreate = (formData) => {
+        console.log("CREATE: ", formData)
+        API.Category.Create({name: formData.name.value}, (res) => {
+            notify.show("Categoria criada com sucesso!", "success")
+            setTableData([...tableData, Utils.sanitizeProto(res.getCategory())])
+        })
     }
 
     const structure = [
@@ -104,7 +98,7 @@ const CategoryPage = () => {
             <AdminTable
                 entityName={entityName}
                 columns={columns}
-                data={data}
+                data={tableData}
                 structure={structure}
                 onUpdate={handleUpdate}
                 onDelete={handleDelete}

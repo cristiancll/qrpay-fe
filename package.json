@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.0",
+    "dayjs": "^1.11.7",
     "google-protobuf": "^3.21.2",
     "grpc-tools": "^1.12.4",
     "grpc-web": "^1.4.2",
