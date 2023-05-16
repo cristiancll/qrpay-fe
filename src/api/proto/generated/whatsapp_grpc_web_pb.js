@@ -198,5 +198,61 @@ proto.proto.WhatsAppServicePromiseClient.prototype.list =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.proto.VoidRequest,
+ *   !proto.proto.WhatsApp>}
+ */
+const methodDescriptor_WhatsAppService_QRCodeStream = new grpc.web.MethodDescriptor(
+  '/proto.WhatsAppService/QRCodeStream',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.proto.VoidRequest,
+  proto.proto.WhatsApp,
+  /**
+   * @param {!proto.proto.VoidRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.proto.WhatsApp.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.proto.VoidRequest} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.WhatsApp>}
+ *     The XHR Node Readable Stream
+ */
+proto.proto.WhatsAppServiceClient.prototype.qRCodeStream =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/proto.WhatsAppService/QRCodeStream',
+      request,
+      metadata || {},
+      methodDescriptor_WhatsAppService_QRCodeStream);
+};
+
+
+/**
+ * @param {!proto.proto.VoidRequest} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.WhatsApp>}
+ *     The XHR Node Readable Stream
+ */
+proto.proto.WhatsAppServicePromiseClient.prototype.qRCodeStream =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/proto.WhatsAppService/QRCodeStream',
+      request,
+      metadata || {},
+      methodDescriptor_WhatsAppService_QRCodeStream);
+};
+
+
 module.exports = proto.proto;
 

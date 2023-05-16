@@ -168,8 +168,9 @@ proto.proto.WhatsApp.toObject = function(includeInstance, msg) {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     qr: jspb.Message.getFieldWithDefault(msg, 2, ""),
     phone: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    active: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
-    banned: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    scanned: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+    active: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    banned: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
@@ -222,18 +223,22 @@ proto.proto.WhatsApp.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 4:
       var value = /** @type {boolean} */ (reader.readBool());
-      msg.setActive(value);
+      msg.setScanned(value);
       break;
     case 5:
       var value = /** @type {boolean} */ (reader.readBool());
-      msg.setBanned(value);
+      msg.setActive(value);
       break;
     case 6:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setBanned(value);
+      break;
+    case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreatedAt(value);
       break;
-    case 7:
+    case 8:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setUpdatedAt(value);
@@ -281,31 +286,38 @@ proto.proto.WhatsApp.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getPhone();
-  if (f.length > 0) {
+  f = /** @type {string} */ (jspb.Message.getField(message, 3));
+  if (f != null) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getActive();
+  f = message.getScanned();
   if (f) {
     writer.writeBool(
       4,
       f
     );
   }
-  f = message.getBanned();
+  f = message.getActive();
   if (f) {
     writer.writeBool(
       5,
       f
     );
   }
+  f = message.getBanned();
+  if (f) {
+    writer.writeBool(
+      6,
+      f
+    );
+  }
   f = message.getCreatedAt();
   if (f != null) {
     writer.writeMessage(
-      6,
+      7,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -313,7 +325,7 @@ proto.proto.WhatsApp.serializeBinaryToWriter = function(message, writer) {
   f = message.getUpdatedAt();
   if (f != null) {
     writer.writeMessage(
-      7,
+      8,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -371,15 +383,33 @@ proto.proto.WhatsApp.prototype.getPhone = function() {
  * @return {!proto.proto.WhatsApp} returns this
  */
 proto.proto.WhatsApp.prototype.setPhone = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional bool active = 4;
+ * Clears the field making it undefined.
+ * @return {!proto.proto.WhatsApp} returns this
+ */
+proto.proto.WhatsApp.prototype.clearPhone = function() {
+  return jspb.Message.setField(this, 3, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
  * @return {boolean}
  */
-proto.proto.WhatsApp.prototype.getActive = function() {
+proto.proto.WhatsApp.prototype.hasPhone = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional bool scanned = 4;
+ * @return {boolean}
+ */
+proto.proto.WhatsApp.prototype.getScanned = function() {
   return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
 };
 
@@ -388,16 +418,16 @@ proto.proto.WhatsApp.prototype.getActive = function() {
  * @param {boolean} value
  * @return {!proto.proto.WhatsApp} returns this
  */
-proto.proto.WhatsApp.prototype.setActive = function(value) {
+proto.proto.WhatsApp.prototype.setScanned = function(value) {
   return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
 /**
- * optional bool banned = 5;
+ * optional bool active = 5;
  * @return {boolean}
  */
-proto.proto.WhatsApp.prototype.getBanned = function() {
+proto.proto.WhatsApp.prototype.getActive = function() {
   return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
 };
 
@@ -406,18 +436,36 @@ proto.proto.WhatsApp.prototype.getBanned = function() {
  * @param {boolean} value
  * @return {!proto.proto.WhatsApp} returns this
  */
-proto.proto.WhatsApp.prototype.setBanned = function(value) {
+proto.proto.WhatsApp.prototype.setActive = function(value) {
   return jspb.Message.setProto3BooleanField(this, 5, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp created_at = 6;
+ * optional bool banned = 6;
+ * @return {boolean}
+ */
+proto.proto.WhatsApp.prototype.getBanned = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.proto.WhatsApp} returns this
+ */
+proto.proto.WhatsApp.prototype.setBanned = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 6, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.proto.WhatsApp.prototype.getCreatedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -426,7 +474,7 @@ proto.proto.WhatsApp.prototype.getCreatedAt = function() {
  * @return {!proto.proto.WhatsApp} returns this
 */
 proto.proto.WhatsApp.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -444,17 +492,17 @@ proto.proto.WhatsApp.prototype.clearCreatedAt = function() {
  * @return {boolean}
  */
 proto.proto.WhatsApp.prototype.hasCreatedAt = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp updated_at = 7;
+ * optional google.protobuf.Timestamp updated_at = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.proto.WhatsApp.prototype.getUpdatedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -463,7 +511,7 @@ proto.proto.WhatsApp.prototype.getUpdatedAt = function() {
  * @return {!proto.proto.WhatsApp} returns this
 */
 proto.proto.WhatsApp.prototype.setUpdatedAt = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -481,7 +529,7 @@ proto.proto.WhatsApp.prototype.clearUpdatedAt = function() {
  * @return {boolean}
  */
 proto.proto.WhatsApp.prototype.hasUpdatedAt = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
