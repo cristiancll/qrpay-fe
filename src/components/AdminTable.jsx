@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import MUIDataTable, {ExpandButton} from "mui-datatables";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,8 +26,19 @@ const tableOptions = {
 const initialExistingData = (structure, ex) => {
     const data = {}
     structure.forEach(entity => {
+        if (!ex) {
+            data[entity.name] = {
+                value: "",
+                error: null,
+            }
+            return
+        }
+        let value = ex[entity.name]
+        if (entity.type === "select") {
+            value = entity.options.find(opt => opt.label === value).value
+        }
         data[entity.name] = {
-            value: ex?.[entity.name] ?? "",
+            value,
             error: null,
         }
     })
@@ -57,9 +68,14 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     // We could externalize it if necessary
     columns.forEach(col => {
         const enabled = col.name !== "actions"
+        const isDate = col.name === "createdAt" || col.name === "updatedAt"
         col.options = {
             filter: enabled,
             sort: enabled,
+            customBodyRender: (value, tableMeta, updateValue) => {
+                if (isDate) return <DateCell value={value}/>
+                return value
+            }
         }
     })
 
@@ -166,4 +182,16 @@ const TitleComponent = ({entityName, handleClick}) => {
     )
 }
 
+const DateCell = ({value}) => {
+    const split = value.split(" ")
+    const date = split[0]
+    const time = split[1]
+    return (
+        <>
+            {date}
+            <br/>
+            {time}
+        </>
+    )
+}
 export default AdminTable;

@@ -612,7 +612,7 @@ proto.proto.ItemCreateRequest.prototype.toObject = function(opt_includeInstance)
  */
 proto.proto.ItemCreateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    category: (f = msg.getCategory()) && category_pb.Category.toObject(includeInstance, f),
+    categoryuuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     name: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
@@ -651,9 +651,8 @@ proto.proto.ItemCreateRequest.deserializeBinaryFromReader = function(msg, reader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new category_pb.Category;
-      reader.readMessage(value,category_pb.Category.deserializeBinaryFromReader);
-      msg.setCategory(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCategoryuuid(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -688,12 +687,11 @@ proto.proto.ItemCreateRequest.prototype.serializeBinary = function() {
  */
 proto.proto.ItemCreateRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getCategory();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getCategoryuuid();
+  if (f.length > 0) {
+    writer.writeString(
       1,
-      f,
-      category_pb.Category.serializeBinaryToWriter
+      f
     );
   }
   f = message.getName();
@@ -707,39 +705,20 @@ proto.proto.ItemCreateRequest.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional Category category = 1;
- * @return {?proto.proto.Category}
+ * optional string categoryUUID = 1;
+ * @return {string}
  */
-proto.proto.ItemCreateRequest.prototype.getCategory = function() {
-  return /** @type{?proto.proto.Category} */ (
-    jspb.Message.getWrapperField(this, category_pb.Category, 1));
+proto.proto.ItemCreateRequest.prototype.getCategoryuuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {?proto.proto.Category|undefined} value
- * @return {!proto.proto.ItemCreateRequest} returns this
-*/
-proto.proto.ItemCreateRequest.prototype.setCategory = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {string} value
  * @return {!proto.proto.ItemCreateRequest} returns this
  */
-proto.proto.ItemCreateRequest.prototype.clearCategory = function() {
-  return this.setCategory(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.ItemCreateRequest.prototype.hasCategory = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.proto.ItemCreateRequest.prototype.setCategoryuuid = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -945,7 +924,7 @@ proto.proto.ItemUpdateRequest.prototype.toObject = function(opt_includeInstance)
 proto.proto.ItemUpdateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    category: (f = msg.getCategory()) && category_pb.Category.toObject(includeInstance, f),
+    categoryuuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
     name: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
@@ -988,9 +967,8 @@ proto.proto.ItemUpdateRequest.deserializeBinaryFromReader = function(msg, reader
       msg.setUuid(value);
       break;
     case 2:
-      var value = new category_pb.Category;
-      reader.readMessage(value,category_pb.Category.deserializeBinaryFromReader);
-      msg.setCategory(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCategoryuuid(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -1032,12 +1010,11 @@ proto.proto.ItemUpdateRequest.serializeBinaryToWriter = function(message, writer
       f
     );
   }
-  f = message.getCategory();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getCategoryuuid();
+  if (f.length > 0) {
+    writer.writeString(
       2,
-      f,
-      category_pb.Category.serializeBinaryToWriter
+      f
     );
   }
   f = message.getName();
@@ -1069,39 +1046,20 @@ proto.proto.ItemUpdateRequest.prototype.setUuid = function(value) {
 
 
 /**
- * optional Category category = 2;
- * @return {?proto.proto.Category}
+ * optional string categoryUUID = 2;
+ * @return {string}
  */
-proto.proto.ItemUpdateRequest.prototype.getCategory = function() {
-  return /** @type{?proto.proto.Category} */ (
-    jspb.Message.getWrapperField(this, category_pb.Category, 2));
+proto.proto.ItemUpdateRequest.prototype.getCategoryuuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
- * @param {?proto.proto.Category|undefined} value
- * @return {!proto.proto.ItemUpdateRequest} returns this
-*/
-proto.proto.ItemUpdateRequest.prototype.setCategory = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {string} value
  * @return {!proto.proto.ItemUpdateRequest} returns this
  */
-proto.proto.ItemUpdateRequest.prototype.clearCategory = function() {
-  return this.setCategory(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.ItemUpdateRequest.prototype.hasCategory = function() {
-  return jspb.Message.getField(this, 2) != null;
+proto.proto.ItemUpdateRequest.prototype.setCategoryuuid = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

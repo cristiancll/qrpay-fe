@@ -1,10 +1,11 @@
 import {Grid, TextField} from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 import React from 'react';
 import Error from "../common/error.js";
 import ReactPhoneInput from 'react-phone-input-material-ui';
 import "react-phone-input-material-ui/lib/style.css";
 
-const FormField = ({label, type, id, formState, disabled, required = true, autoFocus = false}) => {
+const FormField = ({options, label, type, id, formState, disabled, required = true, autoFocus = false}) => {
     const [form, setForm] = formState;
     const handleBlur = (value) => {
         if (!required) {
@@ -23,6 +24,7 @@ const FormField = ({label, type, id, formState, disabled, required = true, autoF
         })
     }
     const handleChange = (value) => {
+        handleBlur(value)
         setForm({
             ...form,
             [id]: {
@@ -32,21 +34,12 @@ const FormField = ({label, type, id, formState, disabled, required = true, autoF
         })
     }
 
-    const isTel = type === "tel";
-    return (
-        <Grid item xs={12} md={3} sx={{width: "100%"}} >
-            { isTel
-                ? <TelephoneField
-                    autoFocus={autoFocus}
-                    disabled={disabled}
-                    label={label}
-                    type={type}
-                    id={id}
-                    form={form}
-                    handleChange={handleChange}
-                    handleBlur={(e) => handleBlur(e.target.value)}
-                    />
-                : <DefaultField
+    let inputField;
+    switch (type) {
+        case "select":
+            inputField = (
+                <SelectField
+                    options={options}
                     autoFocus={autoFocus}
                     disabled={disabled}
                     label={label}
@@ -56,11 +49,69 @@ const FormField = ({label, type, id, formState, disabled, required = true, autoF
                     handleChange={(e) => handleChange(e.target.value)}
                     handleBlur={(e) => handleBlur(e.target.value)}
                 />
-            }
+            )
+            break;
+        case "tel":
+            inputField = (
+                <TelephoneField
+                    autoFocus={autoFocus}
+                    disabled={disabled}
+                    label={label}
+                    type={type}
+                    id={id}
+                    form={form}
+                    handleChange={handleChange}
+                    handleBlur={(e) => handleBlur(e.target.value)}
+                />
+            )
+            break;
+        default:
+            inputField = (
+                <DefaultField
+                    autoFocus={autoFocus}
+                    disabled={disabled}
+                    label={label}
+                    type={type}
+                    id={id}
+                    form={form}
+                    handleChange={(e) => handleChange(e.target.value)}
+                    handleBlur={(e) => handleBlur(e.target.value)}
+                />
+            )
+            break;
+    }
+    return (
+        <Grid item xs={12} md={3} sx={{width: "100%"}}>
+            { inputField }
         </Grid>
     );
 };
 
+const SelectField = ({options, autoFocus, disabled, label, id, form, handleBlur, handleChange}) => {
+    const existingValue = form[id].value
+    const value = options.find((o) => o.value === existingValue || o.label === existingValue)?.value || ""
+    return (
+        <TextField
+            autoFocus={autoFocus}
+            disabled={disabled}
+            label={label}
+            select
+            name={id}
+            id={id}
+            variant="outlined"
+            helperText={form[id].error}
+            error={Error.has(form[id].error)}
+            value={value}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            sx={{width: "100%"}}
+        >
+            {options && options.map((o) => (
+                <MenuItem key={o.value} value={o.value}>{o.label}</MenuItem>
+            ))}
+        </TextField>
+    )
+}
 
 const DefaultField = ({autoFocus, disabled, label, type, id, form, handleChange, handleBlur}) => {
     return (
