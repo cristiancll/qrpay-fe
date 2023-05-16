@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
 import FormField from "./FormField.jsx";
 
 const EntityDialog = ({open, confirmDialog, closeDialog, entityName, structure, existingData, currentUUID}) => {
     const [data, setData] = useState(existingData)
-    useEffect(() => {
+    useLayoutEffect(() => {
         setData(existingData)
     }, [existingData])
 
@@ -38,6 +38,7 @@ const EntityDialog = ({open, confirmDialog, closeDialog, entityName, structure, 
                         id={entity.name}
                         formState={[data, setData]}
                         options={entity.options}
+                        required={entity.required}
                         />
                 ))}
                 </Grid>

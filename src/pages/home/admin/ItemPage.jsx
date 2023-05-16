@@ -87,7 +87,7 @@ const ItemPage = () => {
     const handleDelete = (uuid) => {
         API.Item.Delete({uuid}, (res) => {
             notify.show("Item deletado com sucesso!", "success")
-            setTableData(tableData.filter((c) => c.uuid !== uuid))
+            setTableData(tableData.filter((i) => i.uuid !== uuid))
         })
     }
 

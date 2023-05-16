@@ -672,7 +672,7 @@ proto.proto.SKUCreateRequest.prototype.toObject = function(opt_includeInstance) 
  */
 proto.proto.SKUCreateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    item: (f = msg.getItem()) && item_pb.Item.toObject(includeInstance, f),
+    itemuuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     name: jspb.Message.getFieldWithDefault(msg, 2, ""),
     description: jspb.Message.getFieldWithDefault(msg, 3, ""),
     price: jspb.Message.getFieldWithDefault(msg, 4, 0)
@@ -713,9 +713,8 @@ proto.proto.SKUCreateRequest.deserializeBinaryFromReader = function(msg, reader)
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new item_pb.Item;
-      reader.readMessage(value,item_pb.Item.deserializeBinaryFromReader);
-      msg.setItem(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setItemuuid(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -758,12 +757,11 @@ proto.proto.SKUCreateRequest.prototype.serializeBinary = function() {
  */
 proto.proto.SKUCreateRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getItem();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getItemuuid();
+  if (f.length > 0) {
+    writer.writeString(
       1,
-      f,
-      item_pb.Item.serializeBinaryToWriter
+      f
     );
   }
   f = message.getName();
@@ -791,39 +789,20 @@ proto.proto.SKUCreateRequest.serializeBinaryToWriter = function(message, writer)
 
 
 /**
- * optional Item item = 1;
- * @return {?proto.proto.Item}
+ * optional string itemUUID = 1;
+ * @return {string}
  */
-proto.proto.SKUCreateRequest.prototype.getItem = function() {
-  return /** @type{?proto.proto.Item} */ (
-    jspb.Message.getWrapperField(this, item_pb.Item, 1));
+proto.proto.SKUCreateRequest.prototype.getItemuuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {?proto.proto.Item|undefined} value
- * @return {!proto.proto.SKUCreateRequest} returns this
-*/
-proto.proto.SKUCreateRequest.prototype.setItem = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {string} value
  * @return {!proto.proto.SKUCreateRequest} returns this
  */
-proto.proto.SKUCreateRequest.prototype.clearItem = function() {
-  return this.setItem(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.SKUCreateRequest.prototype.hasItem = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.proto.SKUCreateRequest.prototype.setItemuuid = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1346,7 +1325,7 @@ proto.proto.SKUUpdateRequest.prototype.toObject = function(opt_includeInstance) 
 proto.proto.SKUUpdateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    item: (f = msg.getItem()) && item_pb.Item.toObject(includeInstance, f),
+    itemuuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
     name: jspb.Message.getFieldWithDefault(msg, 3, ""),
     description: jspb.Message.getFieldWithDefault(msg, 4, ""),
     price: jspb.Message.getFieldWithDefault(msg, 5, 0)
@@ -1391,9 +1370,8 @@ proto.proto.SKUUpdateRequest.deserializeBinaryFromReader = function(msg, reader)
       msg.setUuid(value);
       break;
     case 2:
-      var value = new item_pb.Item;
-      reader.readMessage(value,item_pb.Item.deserializeBinaryFromReader);
-      msg.setItem(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setItemuuid(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -1443,12 +1421,11 @@ proto.proto.SKUUpdateRequest.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getItem();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getItemuuid();
+  if (f.length > 0) {
+    writer.writeString(
       2,
-      f,
-      item_pb.Item.serializeBinaryToWriter
+      f
     );
   }
   f = message.getName();
@@ -1494,39 +1471,20 @@ proto.proto.SKUUpdateRequest.prototype.setUuid = function(value) {
 
 
 /**
- * optional Item item = 2;
- * @return {?proto.proto.Item}
+ * optional string itemUUID = 2;
+ * @return {string}
  */
-proto.proto.SKUUpdateRequest.prototype.getItem = function() {
-  return /** @type{?proto.proto.Item} */ (
-    jspb.Message.getWrapperField(this, item_pb.Item, 2));
+proto.proto.SKUUpdateRequest.prototype.getItemuuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
- * @param {?proto.proto.Item|undefined} value
- * @return {!proto.proto.SKUUpdateRequest} returns this
-*/
-proto.proto.SKUUpdateRequest.prototype.setItem = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {string} value
  * @return {!proto.proto.SKUUpdateRequest} returns this
  */
-proto.proto.SKUUpdateRequest.prototype.clearItem = function() {
-  return this.setItem(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.SKUUpdateRequest.prototype.hasItem = function() {
-  return jspb.Message.getField(this, 2) != null;
+proto.proto.SKUUpdateRequest.prototype.setItemuuid = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

@@ -1,9 +1,9 @@
 import Typography from "@mui/material/Typography";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MUIDataTable, {ExpandButton} from "mui-datatables";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import {IconButton, Button, styled} from "@mui/material";
+import {IconButton, Button, styled, FormControlLabel, Switch} from "@mui/material";
 import ConfirmDialog from "./ConfirmDialog";
 import EntityDialog from "./EntityDialog.jsx";
 import AddIcon from '@mui/icons-material/Add';
@@ -35,7 +35,7 @@ const initialExistingData = (structure, ex) => {
         }
         let value = ex[entity.name]
         if (entity.type === "select") {
-            value = entity.options.find(opt => opt.label === value).value
+            value = entity?.options.find(opt => opt.label === value).value
         }
         data[entity.name] = {
             value,
@@ -51,14 +51,14 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     const [deleteOpen, setDeleteOpen] = useState(false);
 
     // Entity dialog for edit/create
-    const [entityOpen, setEntityOpen] = useState(false);
+    const [entityDialog, setEntityDialog] = useState({
+        open: false,
+        existingData: initialExistingData(structure, null)
+    })
 
     // Existing data for edit or delete
-    const [existingData, setExistingData] = useState(initialExistingData(structure, null));
     const [currentUUID, setCurrentUUID] = useState(null);
 
-    // Data to delete
-    // const [deleteData, setDeleteData] = useState(null);
 
     // Check if we have edit and delete functions
     const hasUpdate = typeof onUpdate === "function"
@@ -69,25 +69,32 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     columns.forEach(col => {
         const enabled = col.name !== "actions"
         const isDate = col.name === "createdAt" || col.name === "updatedAt"
+        const isPrice = col.name === "price"
         col.options = {
             filter: enabled,
             sort: enabled,
             customBodyRender: (value, tableMeta, updateValue) => {
                 if (isDate) return <DateCell value={value}/>
+                if (isPrice) return PriceCell(value)
                 return value
             }
         }
     })
 
     const openEntityDialog = (row) => {
-        setExistingData(initialExistingData(structure, row))
         setCurrentUUID(row?.uuid)
-        setEntityOpen(true)
+        setEntityDialog({
+            open: true,
+            existingData: initialExistingData(structure, row)
+        })
     }
     const closeEntityDialog = () => {
-        setExistingData(initialExistingData(structure, null))
         setCurrentUUID(null)
-        setEntityOpen(false)
+        setEntityDialog({
+            open: false,
+            existingData: initialExistingData(structure, null)
+        })
+
     }
 
     const openDeleteDialog = (row) => {
@@ -142,12 +149,12 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
                 closeDialog={closeDeleteDialog}
             />
             <EntityDialog
-                open={entityOpen}
+                open={entityDialog.open}
                 confirmDialog={handleEntityConfirm}
                 closeDialog={closeEntityDialog}
                 entityName={entityName}
                 structure={structure}
-                existingData={existingData}
+                existingData={entityDialog.existingData}
                 currentUUID={currentUUID}
             />
             <MUIDataTable
@@ -192,6 +199,28 @@ const DateCell = ({value}) => {
             <br/>
             {time}
         </>
+    )
+}
+
+const PriceCell = (value) => {
+    const nf = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
+    return nf.format(value/100);
+}
+
+const SwitchCell = (value) => {
+    return (
+        <FormControlLabel
+            label={value ? "Sim" : "Não"}
+            value={value ? "Sim" : "Não"}
+            control={
+                <Switch color="primary" checked={value} value={value ? "Sim" : "Não"} />
+            }
+        />
     )
 }
 export default AdminTable;

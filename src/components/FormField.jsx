@@ -4,7 +4,7 @@ import React from 'react';
 import Error from "../common/error.js";
 import ReactPhoneInput from 'react-phone-input-material-ui';
 import "react-phone-input-material-ui/lib/style.css";
-
+import { NumericFormat } from 'react-number-format';
 const FormField = ({options, label, type, id, formState, disabled, required = true, autoFocus = false}) => {
     const [form, setForm] = formState;
     const handleBlur = (value) => {
@@ -36,6 +36,19 @@ const FormField = ({options, label, type, id, formState, disabled, required = tr
 
     let inputField;
     switch (type) {
+        case "currency":
+            inputField = (
+                <CurrencyField
+                    autoFocus={autoFocus}
+                    disabled={disabled}
+                    label={label}
+                    id={id}
+                    form={form}
+                    handleChange={handleChange}
+                    handleBlur={(e) => handleBlur(e.target.value)}
+                    />
+            )
+            break;
         case "select":
             inputField = (
                 <SelectField
@@ -113,6 +126,36 @@ const SelectField = ({options, autoFocus, disabled, label, id, form, handleBlur,
     )
 }
 
+const CurrencyField = ({autoFocus, disabled, label, id, form, handleChange, handleBlur}) => {
+    let value = form[id].value
+    if (value > 0) {
+        value = value / 100
+    }
+    return (
+        <NumericFormat
+            value={value}
+            allowNegative={false}
+            customInput={TextField}
+            prefix={'R$ '}
+            decimalScale={2}
+            decimalSeparator={','}
+            fixedDecimalScale={true}
+            label={label}
+            disabled={disabled}
+            autoFocus={autoFocus}
+            name={id}
+            id={id}
+            variant="outlined"
+            sx={{width: "100%"}}
+            helperText={form[id].error}
+            error={Error.has(form[id].error)}
+            onBlur={handleBlur}
+            onValueChange={(values) => {
+                handleChange(values.floatValue * 100)
+            }}
+        />
+    )
+}
 const DefaultField = ({autoFocus, disabled, label, type, id, form, handleChange, handleBlur}) => {
     return (
         <TextField

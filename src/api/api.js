@@ -2,6 +2,7 @@ import UserAPI from "./userAPI.js";
 import AuthAPI from "./authAPI.js";
 import CategoryAPI from "./categoryAPI.js";
 import ItemAPI from "./itemAPI.js"
+import SkuAPI from "./skuAPI.js"
 
 const { StatusCode } = require('grpc-web');
 function onErrorDefault(err) {
@@ -16,6 +17,7 @@ const API = {
     Auth: AuthAPI,
     Category: CategoryAPI,
     Item: ItemAPI,
+    SKU: SkuAPI,
 
 
     getMetadata: () => {
