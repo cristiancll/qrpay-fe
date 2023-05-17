@@ -25,6 +25,7 @@ const tableOptions = {
 
 const initialExistingData = (structure, ex) => {
     const data = {}
+    if (!structure) return data
     structure.forEach(entity => {
         if (!ex) {
             data[entity.name] = {
@@ -46,7 +47,6 @@ const initialExistingData = (structure, ex) => {
 }
 
 const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, structure, customActions}) => {
-    // We need to keep track:
     // Confirmation dialog for delete
     const [deleteOpen, setDeleteOpen] = useState(false);
 
@@ -63,6 +63,8 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     // Check if we have edit and delete functions
     const hasUpdate = typeof onUpdate === "function"
     const hasDelete = typeof onDelete === "function"
+    const hasCreate = typeof onCreate === "function"
+    const hasCustomActions = customActions && customActions.length > 0
 
     // Add options to columns
     // We could externalize it if necessary
@@ -74,6 +76,7 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
             filter: enabled,
             sort: enabled,
             customBodyRender: (value, tableMeta, updateValue) => {
+                if (col.customCell) return col.customCell(value, tableMeta, updateValue)
                 if (isDate) return <DateCell value={value}/>
                 if (isPrice) return PriceCell(value)
                 return value
@@ -107,23 +110,25 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     }
 
     // Add actions column for every row
-    data.forEach(row => {
-        row.actions = (
-            <>
-                {customActions && customActions.map(action => action(row))}
-                {hasUpdate &&
-                    <IconButton aria-label="edit" onClick={() => openEntityDialog(row)}>
-                        <EditIcon />
-                    </IconButton>
-                }
-                {hasDelete &&
-                    <IconButton aria-label="delete" onClick={() => openDeleteDialog(row)}>
-                        <DeleteIcon />
-                    </IconButton>
-                }
-            </>
-        )
-    })
+    if (hasUpdate || hasDelete || hasCustomActions) {
+        data.forEach(row => {
+            row.actions = (
+                <>
+                    {hasCustomActions && customActions.map(action => action(row))}
+                    {hasUpdate &&
+                        <IconButton aria-label="edit" onClick={() => openEntityDialog(row)}>
+                            <EditIcon />
+                        </IconButton>
+                    }
+                    {hasDelete &&
+                        <IconButton aria-label="delete" onClick={() => openDeleteDialog(row)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    }
+                </>
+            )
+        })
+    }
 
     const handleDeleteConfirm = () => {
         onDelete(currentUUID)
@@ -162,7 +167,7 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
             />
             }
             <MUIDataTable
-                title={<TitleComponent entityName={entityName} handleClick={() => openEntityDialog(null)}/>}
+                title={<TitleComponent hasCreate={hasCreate} entityName={entityName} handleClick={() => openEntityDialog(null)}/>}
                 data={data}
                 columns={columns}
                 options={tableOptions}
@@ -171,25 +176,30 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     );
 };
 
-const TitleContainer = styled("div")({
-    display: "flex",
-    justifyContent: "space-between",
-    gap: "5px",
-})
 
-const TitleComponent = ({entityName, handleClick}) => {
+const TitleComponent = ({entityName, handleClick, hasCreate}) => {
+    const containerCSS = {
+        display: "flex",
+        justifyContent: "space-between",
+        gap: "5px",
+    }
+    if (!hasCreate) {
+        containerCSS.float = "right"
+    }
     return (
-        <TitleContainer>
-            <Button
-                onClick={handleClick}
-                color={"success"}
-                startIcon={<AddIcon/>}
-                variant={"contained"}
-            >
-                Adicionar
-            </Button>
+        <div style={containerCSS}>
+            { hasCreate &&
+                <Button
+                    onClick={handleClick}
+                    color={"success"}
+                    startIcon={<AddIcon/>}
+                    variant={"contained"}
+                >
+                    Adicionar
+                </Button>
+            }
             <Typography variant="h5">{entityName.plural}</Typography>
-        </TitleContainer>
+        </div>
     )
 }
 
@@ -216,15 +226,4 @@ const PriceCell = (value) => {
     return nf.format(value/100);
 }
 
-const SwitchCell = (value) => {
-    return (
-        <FormControlLabel
-            label={value ? "Sim" : "Não"}
-            value={value ? "Sim" : "Não"}
-            control={
-                <Switch color="primary" checked={value} value={value ? "Sim" : "Não"} />
-            }
-        />
-    )
-}
 export default AdminTable;

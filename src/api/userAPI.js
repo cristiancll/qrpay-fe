@@ -2,7 +2,7 @@ import Config from "../config/config.js";
 import API from "./api.js";
 
 const {UserServiceClient} = require("./proto/generated/user_grpc_web_pb.js");
-const {UserCreateRequest, UserGetRequest, UserAdminCreatedRequest, UserUpdateRequest, UserDeleteRequest, UserListRequest} = require("./proto/generated/user_pb.js");
+const {UserUpdateRoleRequest, UserCreateRequest, UserGetRequest, UserAdminCreatedRequest, UserUpdateRequest, UserDeleteRequest, UserListRequest} = require("./proto/generated/user_pb.js");
 
 const service = new UserServiceClient(Config.APIAddress, null, {
     'withCredentials': true
@@ -41,10 +41,17 @@ const UserAPI = {
         request.setUuid(data.uuid);
         service.delete(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },
-    List: (onSuccess, onError) => {
+    List: (data, onSuccess, onError) => {
         const request = new UserListRequest();
         service.list(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },
+    UpdateRole: (data, onSuccess, onError) => {
+        const request = new UserUpdateRoleRequest();
+        request.setUuid(data.uuid);
+        request.setRole(data.role);
+        request.setEnabled(data.enabled);
+        service.updateRole(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
+    }
 }
 
 export default UserAPI

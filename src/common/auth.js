@@ -1,4 +1,4 @@
-const UserAccess = {
+export const UserAccess = {
     ADMIN: 16,
     MANAGER: 8,
     BILLING: 4,

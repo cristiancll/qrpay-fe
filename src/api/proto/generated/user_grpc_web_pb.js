@@ -442,5 +442,66 @@ proto.proto.UserServicePromiseClient.prototype.list =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.proto.UserUpdateRequest,
+ *   !proto.proto.UserUpdateResponse>}
+ */
+const methodDescriptor_UserService_UpdateRole = new grpc.web.MethodDescriptor(
+  '/proto.UserService/UpdateRole',
+  grpc.web.MethodType.UNARY,
+  proto.proto.UserUpdateRequest,
+  proto.proto.UserUpdateResponse,
+  /**
+   * @param {!proto.proto.UserUpdateRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.proto.UserUpdateResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.proto.UserUpdateRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.proto.UserUpdateResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.UserUpdateResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.proto.UserServiceClient.prototype.updateRole =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/proto.UserService/UpdateRole',
+      request,
+      metadata || {},
+      methodDescriptor_UserService_UpdateRole,
+      callback);
+};
+
+
+/**
+ * @param {!proto.proto.UserUpdateRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.proto.UserUpdateResponse>}
+ *     Promise that resolves to the response
+ */
+proto.proto.UserServicePromiseClient.prototype.updateRole =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/proto.UserService/UpdateRole',
+      request,
+      metadata || {},
+      methodDescriptor_UserService_UpdateRole);
+};
+
+
 module.exports = proto.proto;
 
