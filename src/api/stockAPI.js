@@ -26,10 +26,16 @@ const StockAPI = {
         request.setUuid(data.uuid);
         service.get(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
     },
+    Delete: (data, onSuccess, onError) => {
+        const request = new StockDeleteRequest();
+        request.setUuid(data.uuid);
+        service.delete(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
+    },
     List: (data, onSuccess, onError) => {
         const request = new StockListRequest();
         service.list(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
-    }
+    },
+
 }
 
 export default StockAPI

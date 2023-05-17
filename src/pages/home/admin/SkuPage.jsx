@@ -65,11 +65,15 @@ const SkuPage = () => {
                 })
                 setTableData(skusList)
                 setIsLoading(false)
+            }, (err) => {
+                notify.show( err.message, "error")
             })
             API.Item.List({}, (res) => {
                 const itemsList = res.getItemsList().map((i) => Utils.sanitizeProto(i))
                 setItems(itemsList)
                 setIsLoading(false)
+            }, (err) => {
+                notify.show( err.message, "error")
             })
         }
     }, [])
@@ -89,7 +93,7 @@ const SkuPage = () => {
             price: formData.price.value,
         }
         API.SKU.Update(req, (res) => {
-            notify.show("SKU atualizado com sucesso!", "success")
+            notify.show( "SKU atualizado com sucesso!", "success")
             setTableData(tableData.map((s) => {
                 if (s.uuid === uuid) {
                     const sku = Utils.sanitizeProto(res.getSku())
@@ -98,12 +102,16 @@ const SkuPage = () => {
                 }
                 return s
             }))
+        }, (err) => {
+            notify.show( err.message, "error")
         })
     }
     const handleDelete = (uuid) => {
         API.SKU.Delete({uuid}, (res) => {
             notify.show("SKU deletado com sucesso!", "success")
             setTableData(tableData.filter((s) => s.uuid !== uuid))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 
@@ -119,6 +127,8 @@ const SkuPage = () => {
             const sku = Utils.sanitizeProto(res.getSku())
             sku.item = sku.item.name
             setTableData([...tableData, sku])
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 

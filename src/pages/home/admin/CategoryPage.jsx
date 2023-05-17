@@ -49,6 +49,8 @@ const CategoryPage = () => {
                 console.log("CATEGORY LIST", categoryList)
                 setTableData(categoryList)
                 setIsLoading(false)
+            }, (err) => {
+                notify.show(err.message, "error")
             })
         }
     }, [])
@@ -68,12 +70,16 @@ const CategoryPage = () => {
                 }
                 return c
             }))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
     const handleDelete = (uuid) => {
         API.Category.Delete({uuid}, (res) => {
             notify.show("Categoria deletada com sucesso!", "success")
             setTableData(tableData.filter((c) => c.uuid !== uuid))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 
@@ -82,6 +88,8 @@ const CategoryPage = () => {
         API.Category.Create({name: formData.name.value}, (res) => {
             notify.show("Categoria criada com sucesso!", "success")
             setTableData([...tableData, Utils.sanitizeProto(res.getCategory())])
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 

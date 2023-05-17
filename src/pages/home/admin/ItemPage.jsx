@@ -57,11 +57,15 @@ const ItemPage = () => {
                 })
                 setTableData(itemsList)
                 setIsLoading(false)
+            }, (err) => {
+                notify.show(err.message, "error")
             })
             API.Category.List({}, (res) => {
               const categoryList = res.getCategoriesList().map((c) => Utils.sanitizeProto(c))
                 setCategories(categoryList)
                 setIsLoading(false)
+            }, (err) => {
+                notify.show(err.message, "error")
             })
         }
     }, [])
@@ -82,12 +86,16 @@ const ItemPage = () => {
                 }
                 return i
             }))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
     const handleDelete = (uuid) => {
         API.Item.Delete({uuid}, (res) => {
             notify.show("Item deletado com sucesso!", "success")
             setTableData(tableData.filter((i) => i.uuid !== uuid))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 
@@ -97,6 +105,8 @@ const ItemPage = () => {
             const item = Utils.sanitizeProto(res.getItem())
             item.category = item.category.name
             setTableData([...tableData, item])
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 

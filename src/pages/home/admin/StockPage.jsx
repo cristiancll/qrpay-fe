@@ -73,7 +73,11 @@ const StockPage = () => {
                     setSkus(skuList)
                     setTableData(stockList)
                     setIsLoading(false)
+                }, (err) => {
+                    notify.show(err.message, "error")
                 })
+            }, (err) => {
+                notify.show(err.message, "error")
             })
         }
     }, [])
@@ -94,6 +98,17 @@ const StockPage = () => {
                 }
                 return s
             }))
+        }, (err) => {
+            notify.show(err.message, "error")
+        })
+    }
+
+    const handleDelete = (uuid) => {
+        API.Stock.Delete({uuid}, (res) => {
+            notify.show("Estoque deletado com sucesso!", "success")
+            setTableData(tableData.filter((s) => s.uuid !== uuid))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 
@@ -104,6 +119,8 @@ const StockPage = () => {
             stock.sku = stock.sku.name
             setTableData([...tableData, stock])
             setSkus(skus.filter((s) => s.uuid !== formData.sku.value))
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
 
@@ -132,6 +149,7 @@ const StockPage = () => {
                 structure={structure}
                 onUpdate={handleUpdate}
                 onCreate={handleCreate}
+                onDelete={handleDelete}
             />
         </OutletContainer>
 

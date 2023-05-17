@@ -65,7 +65,7 @@ const UserPage = () => {
                 password: form.password.value,
             }
             API.User.Update(formData, (data) => {
-                notify.show("", "Conta atualizada!", "success");
+                notify.show("Conta atualizada!", "success");
             })
         }
     }

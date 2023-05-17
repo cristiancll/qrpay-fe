@@ -30,7 +30,6 @@ const WhatsAppPage = () => {
         notify.show("WhatsApp Conectado!", "success")
     }
     const onCancel = () => {
-        notify.show("WhatsApp Desconectado!", "warning")
         setWhatsApp(null)
     }
 
@@ -48,6 +47,8 @@ const WhatsAppPage = () => {
             API.WhatsApp.List({}, (res) => {
                 const whatsAppList = res.getWhatsapplistList().map((w) => Utils.sanitizeProto(w))
                 setWhatsAppList(whatsAppList)
+            }, (err) => {
+                notify.show(err.message, "error")
             })
         }
     }, [whatsApp?.qr])

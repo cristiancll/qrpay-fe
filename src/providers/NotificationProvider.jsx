@@ -7,7 +7,7 @@ const useNotify = () => {
     const [body, setBody] = useState("");
     const [severity, setSeverity] = useState("info");
     const [title, setTitle] = useState("");
-    function show(title, body, severity) {
+    function show(body, severity, title = "") {
         setVisible(true);
         setBody(body);
         setTitle(title);

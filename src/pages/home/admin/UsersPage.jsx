@@ -13,6 +13,7 @@ import API from "../../../api/api";
 
 const SwitchCell = ({value, role, uuid, update}) => {
     const [data, setData] = useState(value)
+    const notify = useNotification()
     const label = data ? "Sim" : "Não"
     const [disabled, setDisabled] = useState(false)
 
@@ -28,6 +29,8 @@ const SwitchCell = ({value, role, uuid, update}) => {
         setDisabled(true)
         API.User.UpdateRole(formData, (res) => {
             setDisabled(false)
+        }, (err) => {
+            notify.show(err.message, "error")
         })
     }
     return (
@@ -157,6 +160,8 @@ const UsersPage = () => {
 
                 setTableData(userList)
                 setIsLoading(false)
+            }, (err) => {
+                notify.show(err.message, "error")
             })
         }
     }, [])
