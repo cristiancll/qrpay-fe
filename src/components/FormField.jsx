@@ -12,6 +12,10 @@ const FormField = ({options, label, type, id, formState, disabled, required = tr
             return;
         }
         let isValid = (value !== "")
+
+        if (type === "numberic") {
+            isValid = value !== 0
+        }
         if (type === "tel") {
             const sanitized = value.replace(/[^\d]/g, "")
             isValid = (sanitized.length === 13)
@@ -25,6 +29,9 @@ const FormField = ({options, label, type, id, formState, disabled, required = tr
     }
     const handleChange = (value) => {
         handleBlur(value)
+        if (type === "numberic") {
+            value = value.replace(/^0+|[^0-9]/g, "")
+        }
         setForm({
             ...form,
             [id]: {
@@ -35,6 +42,7 @@ const FormField = ({options, label, type, id, formState, disabled, required = tr
     }
 
     let inputField;
+
     switch (type) {
         case "currency":
             inputField = (
@@ -46,7 +54,7 @@ const FormField = ({options, label, type, id, formState, disabled, required = tr
                     form={form}
                     handleChange={handleChange}
                     handleBlur={(e) => handleBlur(e.target.value)}
-                    />
+                />
             )
             break;
         case "select":
@@ -120,7 +128,7 @@ const SelectField = ({options, autoFocus, disabled, label, id, form, handleBlur,
             sx={{width: "100%"}}
         >
             {options && options.map((o) => (
-                <MenuItem key={o.value} value={o.value}>{o.label}</MenuItem>
+                <MenuItem disabled={o.disabled || false} key={o.value} value={o.value}>{o.label}</MenuItem>
             ))}
         </TextField>
     )

@@ -1,5 +1,5 @@
 import React, {useState, useLayoutEffect} from 'react';
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField} from "@mui/material";
 import FormField from "./FormField.jsx";
 
 const EntityDialog = ({open, confirmDialog, closeDialog, entityName, structure, existingData, currentUUID}) => {
@@ -29,8 +29,14 @@ const EntityDialog = ({open, confirmDialog, closeDialog, entityName, structure, 
                     rowSpacing={3}
                     sx={{paddingTop: "10px"}}
                 >
-                { structure.map((entity, index) => (
-                    <FormField
+                    { structure.map((entity, index) => {
+                        const {onUpdate, onCreate} = entity
+                        if (isUpdate) {
+                            if (onUpdate?.visible === false) return null
+                        } else {
+                            if (onCreate?.visible === false) return null
+                        }
+                    return (<FormField
                         autoFocus={!isUpdate}
                         key={index}
                         label={entity.label}
@@ -40,7 +46,7 @@ const EntityDialog = ({open, confirmDialog, closeDialog, entityName, structure, 
                         options={entity.options}
                         required={entity.required}
                         />
-                ))}
+                    )})}
                 </Grid>
             </DialogContent>
             <DialogActions>

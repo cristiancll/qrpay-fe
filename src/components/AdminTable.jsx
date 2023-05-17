@@ -45,7 +45,7 @@ const initialExistingData = (structure, ex) => {
     return data
 }
 
-const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, structure}) => {
+const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, structure, customActions}) => {
     // We need to keep track:
     // Confirmation dialog for delete
     const [deleteOpen, setDeleteOpen] = useState(false);
@@ -110,6 +110,7 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
     data.forEach(row => {
         row.actions = (
             <>
+                {customActions && customActions.map(action => action(row))}
                 {hasUpdate &&
                     <IconButton aria-label="edit" onClick={() => openEntityDialog(row)}>
                         <EditIcon />
@@ -148,6 +149,8 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
                 confirmDialog={handleDeleteConfirm}
                 closeDialog={closeDeleteDialog}
             />
+            { entityDialog.open &&
+
             <EntityDialog
                 open={entityDialog.open}
                 confirmDialog={handleEntityConfirm}
@@ -157,6 +160,7 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
                 existingData={entityDialog.existingData}
                 currentUUID={currentUUID}
             />
+            }
             <MUIDataTable
                 title={<TitleComponent entityName={entityName} handleClick={() => openEntityDialog(null)}/>}
                 data={data}

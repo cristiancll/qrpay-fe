@@ -3,6 +3,7 @@ import AuthAPI from "./authAPI.js";
 import CategoryAPI from "./categoryAPI.js";
 import ItemAPI from "./itemAPI.js"
 import SkuAPI from "./skuAPI.js"
+import StockAPI from "./stockAPI.js"
 import WhatsAppAPI from "./whatsAppAPI.js"
 
 const { StatusCode } = require('grpc-web');
@@ -20,8 +21,7 @@ const API = {
     Item: ItemAPI,
     SKU: SkuAPI,
     WhatsApp: WhatsAppAPI,
-
-
+    Stock: StockAPI,
     getMetadata: () => {
         return {
         }

@@ -1,5 +1,7 @@
+import {WhatsApp} from "@mui/icons-material";
 import {TableCell, TableContainer, Table, TableHead, TableRow, TableBody, Paper, Grid} from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
 import React, {useEffect, useState} from 'react';
 import API from "../../../api/api.js";
 import Auth from "../../../common/auth.js";
@@ -9,7 +11,7 @@ import {useAuthentication} from "../../../providers/AuthProvider.jsx";
 import {useNotification} from "../../../providers/NotificationProvider.jsx";
 import UnauthorizedPage from "../../UnauthorizedPage.jsx";
 import QRCode from "react-qr-code";
-
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const WhatsAppPage = () => {
     const auth = useAuthentication()
     const notify = useNotification()
@@ -26,7 +28,6 @@ const WhatsAppPage = () => {
     }
     const onEnd = () => {
         notify.show("WhatsApp Conectado!", "success")
-        setWhatsApp(null)
     }
     const onCancel = () => {
         notify.show("WhatsApp Desconectado!", "warning")
@@ -111,6 +112,17 @@ const QR = ({whatsApp}) => {
         return null
     }
     const code = whatsApp.qr
+    if (whatsApp.active === true) {
+        return (
+            <Typography
+                sx={{fontSize: "4rem", textAlign: "center", color: "#4caf50", lineHeight: "4rem"}}
+                component="div"
+                gutterBottom
+            >
+                C<WhatsAppIcon sx={{fontSize: "2.5rem"}}/>nectado!
+            </Typography>
+            )
+    }
     return (
         <div style={{ height: "auto", margin: "0 auto", maxWidth: 512, width: "100%", background: 'white', padding: '16px', marginBottom: '20px' }}>
             <QRCode

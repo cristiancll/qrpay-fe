@@ -203,67 +203,6 @@ proto.proto.StockServicePromiseClient.prototype.update =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.proto.StockDeleteRequest,
- *   !proto.proto.StockDeleteResponse>}
- */
-const methodDescriptor_StockService_Delete = new grpc.web.MethodDescriptor(
-  '/proto.StockService/Delete',
-  grpc.web.MethodType.UNARY,
-  proto.proto.StockDeleteRequest,
-  proto.proto.StockDeleteResponse,
-  /**
-   * @param {!proto.proto.StockDeleteRequest} request
-   * @return {!Uint8Array}
-   */
-  function(request) {
-    return request.serializeBinary();
-  },
-  proto.proto.StockDeleteResponse.deserializeBinary
-);
-
-
-/**
- * @param {!proto.proto.StockDeleteRequest} request The
- *     request proto
- * @param {?Object<string, string>} metadata User defined
- *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.proto.StockDeleteResponse)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.proto.StockDeleteResponse>|undefined}
- *     The XHR Node Readable Stream
- */
-proto.proto.StockServiceClient.prototype.delete =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/proto.StockService/Delete',
-      request,
-      metadata || {},
-      methodDescriptor_StockService_Delete,
-      callback);
-};
-
-
-/**
- * @param {!proto.proto.StockDeleteRequest} request The
- *     request proto
- * @param {?Object<string, string>=} metadata User defined
- *     call metadata
- * @return {!Promise<!proto.proto.StockDeleteResponse>}
- *     Promise that resolves to the response
- */
-proto.proto.StockServicePromiseClient.prototype.delete =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/proto.StockService/Delete',
-      request,
-      metadata || {},
-      methodDescriptor_StockService_Delete);
-};
-
-
-/**
- * @const
- * @type {!grpc.web.MethodDescriptor<
  *   !proto.proto.StockGetRequest,
  *   !proto.proto.StockGetResponse>}
  */
