@@ -8,48 +8,41 @@ export const UserAccess = {
 
 const Auth = {
     isAdmin: (auth) => {
-        // return true
         const u = auth.user;
         return u && (u.role & UserAccess.ADMIN) === UserAccess.ADMIN;
     },
     isManager: (auth) => {
-        // return true
         const u = auth.user;
-        return u && (u.role & UserAccess.MANAGER) === UserAccess.MANAGER;
+        return u && (Auth.isAdmin(auth) || ((u.role & UserAccess.MANAGER) === UserAccess.MANAGER));
     },
     isBilling: (auth) => {
-        // return true
         const u = auth.user;
-        return u && (u.role & UserAccess.BILLING) === UserAccess.BILLING;
+        return u && (Auth.isAdmin(auth) || ((u.role & UserAccess.BILLING) === UserAccess.BILLING));
     },
     isSeller: (auth) => {
-        // return true
         const u = auth.user;
-        return u && (u.role & UserAccess.SELLER) === UserAccess.SELLER;
+        return u && (Auth.isAdmin(auth) || ((u.role & UserAccess.SELLER) === UserAccess.SELLER));
     },
     isClient: (auth) => {
-        // return true
         const u = auth.user;
-        return u && (u.role & UserAccess.CLIENT) === UserAccess.CLIENT;
+        return u && (Auth.isAdmin(auth) || ((u.role & UserAccess.CLIENT) === UserAccess.CLIENT));
     },
     isAuthenticated: (auth) => {
-        // return true
         const u = auth.user;
         return u && u.uuid;
     },
     isVerified(auth) {
-        // return true
         const u = auth.auth;
         return u && u.verified;
     },
     isDisabled: (auth) => {
-        // return true
         const u = auth.user;
         return u && u.disabled;
     },
     onlyOneRole: (auth) => {
         const role = auth?.user?.role;
         if (!role) return true;
+        if (role === UserAccess.ADMIN) return false;
         // Checks if role is a power of 2 in the range of UserAccess
         return role && (role & (role - 1)) === 0 && role <= UserAccess.ADMIN;
     }
