@@ -106,7 +106,12 @@ const StockPage = () => {
     const handleDelete = (uuid) => {
         API.Stock.Delete({uuid}, (res) => {
             notify.show("Estoque deletado com sucesso!", "success")
+            const deletedStock = tableData.find((s) => s.uuid === uuid)
             setTableData(tableData.filter((s) => s.uuid !== uuid))
+            // TODO: improve this, we should rely on UUID not name
+            const sku = skus.find((s) => s.name === deletedStock.sku)
+            sku.metadata = { disabled: false }
+            setSkus([...skus])
         }, (err) => {
             notify.show(err.message, "error")
         })
@@ -118,7 +123,9 @@ const StockPage = () => {
             const stock = Utils.sanitizeProto(res.getStock())
             stock.sku = stock.sku.name
             setTableData([...tableData, stock])
-            setSkus(skus.filter((s) => s.uuid !== formData.sku.value))
+            const sku = skus.find((s) => s.uuid === formData.sku.value)
+            sku.metadata = { disabled: true }
+            setSkus([...skus])
         }, (err) => {
             notify.show(err.message, "error")
         })
