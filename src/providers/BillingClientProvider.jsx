@@ -45,6 +45,11 @@ const useBilling = (user) => {
     }
 
     const toggleExpandItem = (item) => {
+        // Checks if there is an SKU in the order that uses this item and prevents it closing
+        const found = Object.keys(order).find((skuUuid) => order[skuUuid]?.item.uuid === item.uuid && order[skuUuid]?.quantity > 0)
+        if (found) {
+            return
+        }
         if (expandedItems.includes(item.uuid)) {
             setExpandedItems(expandedItems.filter((i) => i !== item.uuid))
         } else {
@@ -90,6 +95,7 @@ const useBilling = (user) => {
             }
             skuOrder = {
                 quantity: n,
+                item: sku.item,
                 price: sku.price,
                 name: sku.name,
                 subtotal: sku.price * n,
