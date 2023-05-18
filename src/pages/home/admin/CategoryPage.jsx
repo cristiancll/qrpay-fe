@@ -46,7 +46,6 @@ const CategoryPage = () => {
         if (Auth.isAdmin(auth)) {
             API.Category.List({}, (res) => {
                 const categoryList = res.getCategoriesList().map((c) => Utils.sanitizeProto(c))
-                console.log("CATEGORY LIST", categoryList)
                 setTableData(categoryList)
                 setIsLoading(false)
             }, (err) => {
@@ -62,7 +61,6 @@ const CategoryPage = () => {
     }
     const handleUpdate = (uuid, formData) => {
         API.Category.Update({uuid, name: formData.name.value}, (res) => {
-            console.log("UPDATE RESPONSE", res.getCategory().toObject())
             notify.show("Categoria atualizada com sucesso!", "success")
             setTableData(tableData.map((c) => {
                 if (c.uuid === uuid) {
@@ -84,7 +82,6 @@ const CategoryPage = () => {
     }
 
     const handleCreate = (formData) => {
-        console.log("CREATE: ", formData)
         API.Category.Create({name: formData.name.value}, (res) => {
             notify.show("Categoria criada com sucesso!", "success")
             setTableData([...tableData, Utils.sanitizeProto(res.getCategory())])

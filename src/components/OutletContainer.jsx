@@ -5,7 +5,7 @@ import Auth from "../common/auth.js";
 import {useAuthentication} from "../providers/AuthProvider.jsx";
 import NotificationProvider from "../providers/NotificationProvider.jsx";
 
-const OutletContainer = ({children}) => {
+const OutletContainer = ({children, rowSpacing, columnSpacing, rowGap, columnGap, alignItems = "center", justifyContent = "center"}) => {
     const auth = useAuthentication()
     const barsHeight = Auth.onlyOneRole(auth) ? 64 : 120;
     const css = {
@@ -16,9 +16,13 @@ const OutletContainer = ({children}) => {
     return (
         <Grid
             container
-            justifyContent="center"
-            alignItems="center"
+            justifyContent={justifyContent}
+            alignItems={alignItems}
             style={css}
+            rowSpacing={rowSpacing}
+            rowGap={rowSpacing}
+            columnSpacing={columnSpacing}
+            columnGap={columnSpacing}
         >
             <NotificationProvider>
                 <Grid sx={{width: "100%"}}>
