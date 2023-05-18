@@ -11,7 +11,6 @@ const ItemCards = () => {
             <Grid
                 container={true}
                 rowSpacing={1}
-                columnSpacing={1}
                 xs={12}
             >
                 { categoryItems && categoryItems.map((item, i) => <ItemCard key={`item_${i}`} item={item}/>)}
