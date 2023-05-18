@@ -4,6 +4,7 @@ import MUIDataTable, {ExpandButton} from "mui-datatables";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {IconButton, Button, styled, FormControlLabel, Switch} from "@mui/material";
+import Utils from "../common/utils.js";
 import ConfirmDialog from "./ConfirmDialog";
 import EntityDialog from "./EntityDialog.jsx";
 import AddIcon from '@mui/icons-material/Add';
@@ -78,7 +79,7 @@ const AdminTable = ({entityName, columns, data, onCreate, onUpdate, onDelete, st
             customBodyRender: (value, tableMeta, updateValue) => {
                 if (col.customCell) return col.customCell(value, tableMeta, updateValue)
                 if (isDate) return <DateCell value={value}/>
-                if (isPrice) return PriceCell(value)
+                if (isPrice) return Utils.formatPrice(value)
                 return value
             }
         }
@@ -216,14 +217,5 @@ const DateCell = ({value}) => {
     )
 }
 
-const PriceCell = (value) => {
-    const nf = new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-    });
-    return nf.format(value/100);
-}
 
 export default AdminTable;
