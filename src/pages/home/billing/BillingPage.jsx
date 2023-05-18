@@ -23,9 +23,9 @@ const BillingPage = () => {
     const onScan = (code) => {
         if (Utils.isValidUUID(code)) {
             navigate(`/billing/client?uuid=${code}`)
-        } else {
-            notify.show("QR inválido", "error")
+            return
         }
+        notify.show("QR inválido!", "error")
         setShowQR(false)
     }
     const onClose = () => {
