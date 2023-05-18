@@ -33,6 +33,20 @@ const Utils = {
             obj['phone'] = Utils.formatPhoneNumber(proto.getPhone());
         }
         return obj;
+    },
+    isValidUUID: (uuid) => {
+        const regex = new RegExp('^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$');
+        return regex.test(uuid);
+    },
+
+    formatPrice: (price) => {
+        const nf = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        });
+        return nf.format(price/100);
     }
 }
 
