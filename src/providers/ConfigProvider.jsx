@@ -6,15 +6,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const ConfigContext = React.createContext({});
 
 const useThemeConfig = () => {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-    const theme = React.useMemo(
+    // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    const theme = useMemo(
         () =>
             createTheme({
                 palette: {
-                    mode: prefersDarkMode ? 'dark' : 'light',
+                    mode: 'dark',
                 },
             }),
-        [prefersDarkMode],
+        [],
     );
     return {
         theme
