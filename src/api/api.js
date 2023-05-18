@@ -5,6 +5,7 @@ import ItemAPI from "./itemAPI.js"
 import SkuAPI from "./skuAPI.js"
 import StockAPI from "./stockAPI.js"
 import WhatsAppAPI from "./whatsAppAPI.js"
+import SaleAPI from "./saleAPI.js"
 
 const { StatusCode } = require('grpc-web');
 function onErrorDefault(err) {
@@ -22,6 +23,7 @@ const API = {
     SKU: SkuAPI,
     WhatsApp: WhatsAppAPI,
     Stock: StockAPI,
+    Sale: SaleAPI,
     getMetadata: () => {
         return {
         }
