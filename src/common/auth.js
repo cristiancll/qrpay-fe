@@ -40,11 +40,12 @@ const Auth = {
         return u && u.disabled;
     },
     onlyOneRole: (auth) => {
-        const role = auth?.user?.role;
-        if (!role) return true;
-        if (role === UserAccess.ADMIN) return false;
-        // Checks if role is a power of 2 in the range of UserAccess
-        return role && (role & (role - 1)) === 0 && role <= UserAccess.ADMIN;
+        return false
+        // const role = auth?.user?.role;
+        // if (!role) return true;
+        // if (role === UserAccess.ADMIN) return false;
+        //// Checks if role is a power of 2 in the range of UserAccess
+        // return role && (role & (role - 1)) === 0 && role <= UserAccess.ADMIN;
     }
 }
 
