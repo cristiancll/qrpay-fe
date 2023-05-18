@@ -1,7 +1,7 @@
 import React from 'react';
-import Auth from "../../common/auth.js";
-import {useAuthentication} from "../../providers/AuthProvider.jsx";
-import UnauthorizedPage from "../UnauthorizedPage.jsx";
+import Auth from "../../../common/auth.js";
+import {useAuthentication} from "../../../providers/AuthProvider.jsx";
+import UnauthorizedPage from "../../UnauthorizedPage.jsx";
 
 const ManagerPage = () => {
     const auth = useAuthentication()

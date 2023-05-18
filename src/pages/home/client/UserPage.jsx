@@ -1,14 +1,14 @@
-import API from "../../api/api.js";
+import API from "../../../api/api.js";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import Error from "../../common/error.js";
-import ButtonOption from "../../components/ButtonOption.jsx";
-import ConfirmDialog from "../../components/ConfirmDialog.jsx";
-import FormField from "../../components/FormField.jsx";
-import OptionsColumn from "../../components/OptionsColumn.jsx";
-import PageHeader from "../../components/PageHeader.jsx";
-import {useAuthentication} from "../../providers/AuthProvider.jsx";
-import {useNotification} from "../../providers/NotificationProvider.jsx";
+import Error from "../../../common/error.js";
+import ButtonOption from "../../../components/ButtonOption.jsx";
+import ConfirmDialog from "../../../components/ConfirmDialog.jsx";
+import FormField from "../../../components/FormField.jsx";
+import OptionsColumn from "../../../components/OptionsColumn.jsx";
+import PageHeader from "../../../components/PageHeader.jsx";
+import {useAuthentication} from "../../../providers/AuthProvider.jsx";
+import {useNotification} from "../../../providers/NotificationProvider.jsx";
 
 const UserPage = () => {
     const navigate = useNavigate()
