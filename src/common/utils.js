@@ -1,5 +1,33 @@
 import dayjs from 'dayjs';
 
+function formatInteger(value) {
+    // Convert the integer part to a string
+    let integerStr = value.toString();
+
+    // Format with thousands separator
+    let formatted = "";
+    for (let i = integerStr.length - 1, j = 0; i >= 0; i--, j++) {
+        formatted = integerStr[i] + formatted;
+        if (j > 0 && j % 3 === 0 && i !== 0) {
+            formatted = "." + formatted;
+        }
+    }
+
+    return formatted;
+}
+
+function formatDecimal(value) {
+    // Convert the decimal part to a string
+    let decimalStr = value.toString();
+
+    // Pad with leading zeros if necessary
+    if (decimalStr.length === 1) {
+        decimalStr = "0" + decimalStr;
+    }
+
+    return decimalStr;
+}
+
 const Utils = {
     protoTimestampToDateTime: (timestamp) => {
         const date = timestamp.toDate();
@@ -40,13 +68,21 @@ const Utils = {
     },
 
     formatPrice: (price) => {
-        const nf = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-        });
-        return nf.format(price/100);
+        // Extract the integer and decimal parts
+        const integerPart = Math.floor(price / 100);
+        const decimalPart = price % 100;
+
+        // Format the integer part with thousands separator
+        const formattedIntegerPart = formatInteger(integerPart);
+
+        // Format the decimal part
+        const formattedDecimalPart = formatDecimal(decimalPart);
+
+        // Join the integer and decimal parts with the comma separator
+        const formattedAmount = `${formattedIntegerPart},${formattedDecimalPart}`;
+
+        // Add the BRL symbol
+        return `R$ ${formattedAmount}`;
     }
 }
 
