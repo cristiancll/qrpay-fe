@@ -1,6 +1,7 @@
 import API from "../../../api/api.js";
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import Auth from "../../../common/auth.js";
 import Error from "../../../common/error.js";
 import ButtonOption from "../../../components/ButtonOption.jsx";
 import ConfirmDialog from "../../../components/ConfirmDialog.jsx";
@@ -115,10 +116,13 @@ const UserPage = () => {
                 text="Atualizar"
                 onClick={handleSubmit}
             />
-            <ButtonOption
-                text="Excluir Conta"
-                onClick={() => setConfirmOpen(true)}
-            />
+            { Auth.isAdmin(auth) &&
+                <ButtonOption
+                    text="Excluir Conta"
+                    onClick={() => setConfirmOpen(true)}
+                />
+            }
+
         </OptionsColumn>
     )
 };
