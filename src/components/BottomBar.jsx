@@ -33,7 +33,7 @@ const BottomBar = () => {
                 icon={<AdminPanelSettingsIcon/>}
             />
             <BottomNavigationAction
-                label="Entrega"
+                label="Gerência"
                 value="manager"
                 disabled={!Auth.isManager(auth)}
                 icon={<SupervisorAccountIcon/>}

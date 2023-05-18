@@ -111,7 +111,7 @@ const columns = [
     },
     {
         name: "isManager",
-        label: "Entrega",
+        label: "Gerência",
         customCell: ManagerSwitch,
     },
     {
