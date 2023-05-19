@@ -27,7 +27,10 @@ function setUserOnLocalstorage(user) {
 }
 function setTokenOnLocalstorage(response) {
     const token = response.getToken();
-    localStorage.setItem('jwt', token);
+    console.log("TRYING TO SET TOKEN: ", token)
+    if (token && token.length > 0) {
+        localStorage.setItem('jwt', token);
+    }
 }
 
 const useAuth = () => {
@@ -37,6 +40,7 @@ const useAuth = () => {
 
     const login = (phone, password, onError = {}) => {
         API.Auth.Login({phone, password}, (data) => {
+            console.log("RECEIVED LOGIN IN")
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
             setTokenOnLocalstorage(data)
             setUserOnLocalstorage(u)
@@ -66,6 +70,7 @@ const useAuth = () => {
         }
         setLoading(true)
         API.Auth.Heartbeat({}, (data) => {
+            console.log("RECEIVED HEARTBEAT")
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
             setTokenOnLocalstorage(data)
             setUserOnLocalstorage(u)
