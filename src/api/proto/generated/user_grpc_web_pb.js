@@ -445,33 +445,33 @@ proto.proto.UserServicePromiseClient.prototype.list =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.proto.UserUpdateRequest,
- *   !proto.proto.UserUpdateResponse>}
+ *   !proto.proto.UserUpdateRoleRequest,
+ *   !proto.proto.UserUpdateRoleResponse>}
  */
 const methodDescriptor_UserService_UpdateRole = new grpc.web.MethodDescriptor(
   '/proto.UserService/UpdateRole',
   grpc.web.MethodType.UNARY,
-  proto.proto.UserUpdateRequest,
-  proto.proto.UserUpdateResponse,
+  proto.proto.UserUpdateRoleRequest,
+  proto.proto.UserUpdateRoleResponse,
   /**
-   * @param {!proto.proto.UserUpdateRequest} request
+   * @param {!proto.proto.UserUpdateRoleRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.proto.UserUpdateResponse.deserializeBinary
+  proto.proto.UserUpdateRoleResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.proto.UserUpdateRequest} request The
+ * @param {!proto.proto.UserUpdateRoleRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.proto.UserUpdateResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.proto.UserUpdateRoleResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.proto.UserUpdateResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.UserUpdateRoleResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.proto.UserServiceClient.prototype.updateRole =
@@ -486,11 +486,11 @@ proto.proto.UserServiceClient.prototype.updateRole =
 
 
 /**
- * @param {!proto.proto.UserUpdateRequest} request The
+ * @param {!proto.proto.UserUpdateRoleRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.proto.UserUpdateResponse>}
+ * @return {!Promise<!proto.proto.UserUpdateRoleResponse>}
  *     Promise that resolves to the response
  */
 proto.proto.UserServicePromiseClient.prototype.updateRole =

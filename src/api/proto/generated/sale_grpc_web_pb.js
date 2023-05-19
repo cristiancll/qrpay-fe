@@ -23,6 +23,8 @@ grpc.web = require('grpc-web');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js')
 
 var user_pb = require('./user_pb.js')
+
+var sku_pb = require('./sku_pb.js')
 const proto = {};
 proto.proto = require('./sale_pb.js');
 
@@ -380,6 +382,128 @@ proto.proto.SaleServicePromiseClient.prototype.delete =
       request,
       metadata || {},
       methodDescriptor_SaleService_Delete);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.proto.ListSaleItemsByUserRequest,
+ *   !proto.proto.ListSaleItemsByUserResponse>}
+ */
+const methodDescriptor_SaleService_ListSaleItemsByUser = new grpc.web.MethodDescriptor(
+  '/proto.SaleService/ListSaleItemsByUser',
+  grpc.web.MethodType.UNARY,
+  proto.proto.ListSaleItemsByUserRequest,
+  proto.proto.ListSaleItemsByUserResponse,
+  /**
+   * @param {!proto.proto.ListSaleItemsByUserRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.proto.ListSaleItemsByUserResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.proto.ListSaleItemsByUserRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.proto.ListSaleItemsByUserResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.ListSaleItemsByUserResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.proto.SaleServiceClient.prototype.listSaleItemsByUser =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/proto.SaleService/ListSaleItemsByUser',
+      request,
+      metadata || {},
+      methodDescriptor_SaleService_ListSaleItemsByUser,
+      callback);
+};
+
+
+/**
+ * @param {!proto.proto.ListSaleItemsByUserRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.proto.ListSaleItemsByUserResponse>}
+ *     Promise that resolves to the response
+ */
+proto.proto.SaleServicePromiseClient.prototype.listSaleItemsByUser =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/proto.SaleService/ListSaleItemsByUser',
+      request,
+      metadata || {},
+      methodDescriptor_SaleService_ListSaleItemsByUser);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.proto.ListAvailableSaleItemsByUserRequest,
+ *   !proto.proto.ListAvailableSaleItemsByUserResponse>}
+ */
+const methodDescriptor_SaleService_ListAvailableSaleItemsByUser = new grpc.web.MethodDescriptor(
+  '/proto.SaleService/ListAvailableSaleItemsByUser',
+  grpc.web.MethodType.UNARY,
+  proto.proto.ListAvailableSaleItemsByUserRequest,
+  proto.proto.ListAvailableSaleItemsByUserResponse,
+  /**
+   * @param {!proto.proto.ListAvailableSaleItemsByUserRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.proto.ListAvailableSaleItemsByUserResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.proto.ListAvailableSaleItemsByUserRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.proto.ListAvailableSaleItemsByUserResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.proto.ListAvailableSaleItemsByUserResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.proto.SaleServiceClient.prototype.listAvailableSaleItemsByUser =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/proto.SaleService/ListAvailableSaleItemsByUser',
+      request,
+      metadata || {},
+      methodDescriptor_SaleService_ListAvailableSaleItemsByUser,
+      callback);
+};
+
+
+/**
+ * @param {!proto.proto.ListAvailableSaleItemsByUserRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.proto.ListAvailableSaleItemsByUserResponse>}
+ *     Promise that resolves to the response
+ */
+proto.proto.SaleServicePromiseClient.prototype.listAvailableSaleItemsByUser =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/proto.SaleService/ListAvailableSaleItemsByUser',
+      request,
+      metadata || {},
+      methodDescriptor_SaleService_ListAvailableSaleItemsByUser);
 };
 
 

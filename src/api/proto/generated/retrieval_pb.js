@@ -25,8 +25,8 @@ var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/time
 goog.object.extend(proto, google_protobuf_timestamp_pb);
 var user_pb = require('./user_pb.js');
 goog.object.extend(proto, user_pb);
-var orderItem_pb = require('./orderItem_pb.js');
-goog.object.extend(proto, orderItem_pb);
+var sale_pb = require('./sale_pb.js');
+goog.object.extend(proto, sale_pb);
 goog.exportSymbol('proto.proto.Retrieval', null, global);
 goog.exportSymbol('proto.proto.RetrievalCreateRequest', null, global);
 goog.exportSymbol('proto.proto.RetrievalCreateResponse', null, global);
@@ -70,7 +70,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.proto.RetrievalCreateRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.proto.RetrievalCreateRequest.repeatedFields_, null);
 };
 goog.inherits(proto.proto.RetrievalCreateRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -304,8 +304,8 @@ proto.proto.Retrieval.toObject = function(includeInstance, msg) {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     user: (f = msg.getUser()) && user_pb.User.toObject(includeInstance, f),
     seller: (f = msg.getSeller()) && user_pb.User.toObject(includeInstance, f),
-    orderItem: (f = msg.getOrderItem()) && orderItem_pb.OrderItem.toObject(includeInstance, f),
-    quantity: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    saleItem: (f = msg.getSaleItem()) && sale_pb.SaleItem.toObject(includeInstance, f),
+    delivered: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
@@ -359,13 +359,13 @@ proto.proto.Retrieval.deserializeBinaryFromReader = function(msg, reader) {
       msg.setSeller(value);
       break;
     case 4:
-      var value = new orderItem_pb.OrderItem;
-      reader.readMessage(value,orderItem_pb.OrderItem.deserializeBinaryFromReader);
-      msg.setOrderItem(value);
+      var value = new sale_pb.SaleItem;
+      reader.readMessage(value,sale_pb.SaleItem.deserializeBinaryFromReader);
+      msg.setSaleItem(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setQuantity(value);
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setDelivered(value);
       break;
     case 6:
       var value = new google_protobuf_timestamp_pb.Timestamp;
@@ -429,17 +429,17 @@ proto.proto.Retrieval.serializeBinaryToWriter = function(message, writer) {
       user_pb.User.serializeBinaryToWriter
     );
   }
-  f = message.getOrderItem();
+  f = message.getSaleItem();
   if (f != null) {
     writer.writeMessage(
       4,
       f,
-      orderItem_pb.OrderItem.serializeBinaryToWriter
+      sale_pb.SaleItem.serializeBinaryToWriter
     );
   }
-  f = message.getQuantity();
-  if (f !== 0) {
-    writer.writeInt64(
+  f = message.getDelivered();
+  if (f) {
+    writer.writeBool(
       5,
       f
     );
@@ -556,20 +556,20 @@ proto.proto.Retrieval.prototype.hasSeller = function() {
 
 
 /**
- * optional OrderItem order_item = 4;
- * @return {?proto.proto.OrderItem}
+ * optional SaleItem sale_item = 4;
+ * @return {?proto.proto.SaleItem}
  */
-proto.proto.Retrieval.prototype.getOrderItem = function() {
-  return /** @type{?proto.proto.OrderItem} */ (
-    jspb.Message.getWrapperField(this, orderItem_pb.OrderItem, 4));
+proto.proto.Retrieval.prototype.getSaleItem = function() {
+  return /** @type{?proto.proto.SaleItem} */ (
+    jspb.Message.getWrapperField(this, sale_pb.SaleItem, 4));
 };
 
 
 /**
- * @param {?proto.proto.OrderItem|undefined} value
+ * @param {?proto.proto.SaleItem|undefined} value
  * @return {!proto.proto.Retrieval} returns this
 */
-proto.proto.Retrieval.prototype.setOrderItem = function(value) {
+proto.proto.Retrieval.prototype.setSaleItem = function(value) {
   return jspb.Message.setWrapperField(this, 4, value);
 };
 
@@ -578,8 +578,8 @@ proto.proto.Retrieval.prototype.setOrderItem = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.proto.Retrieval} returns this
  */
-proto.proto.Retrieval.prototype.clearOrderItem = function() {
-  return this.setOrderItem(undefined);
+proto.proto.Retrieval.prototype.clearSaleItem = function() {
+  return this.setSaleItem(undefined);
 };
 
 
@@ -587,26 +587,26 @@ proto.proto.Retrieval.prototype.clearOrderItem = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.proto.Retrieval.prototype.hasOrderItem = function() {
+proto.proto.Retrieval.prototype.hasSaleItem = function() {
   return jspb.Message.getField(this, 4) != null;
 };
 
 
 /**
- * optional int64 quantity = 5;
- * @return {number}
+ * optional bool delivered = 5;
+ * @return {boolean}
  */
-proto.proto.Retrieval.prototype.getQuantity = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+proto.proto.Retrieval.prototype.getDelivered = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
 };
 
 
 /**
- * @param {number} value
+ * @param {boolean} value
  * @return {!proto.proto.Retrieval} returns this
  */
-proto.proto.Retrieval.prototype.setQuantity = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
+proto.proto.Retrieval.prototype.setDelivered = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 5, value);
 };
 
 
@@ -685,6 +685,13 @@ proto.proto.Retrieval.prototype.hasUpdatedAt = function() {
 
 
 
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.proto.RetrievalCreateRequest.repeatedFields_ = [2];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -716,10 +723,8 @@ proto.proto.RetrievalCreateRequest.prototype.toObject = function(opt_includeInst
  */
 proto.proto.RetrievalCreateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    user: (f = msg.getUser()) && user_pb.User.toObject(includeInstance, f),
-    seller: (f = msg.getSeller()) && user_pb.User.toObject(includeInstance, f),
-    orderItem: (f = msg.getOrderItem()) && orderItem_pb.OrderItem.toObject(includeInstance, f),
-    quantity: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    useruuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    saleitemuuidsList: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -757,23 +762,12 @@ proto.proto.RetrievalCreateRequest.deserializeBinaryFromReader = function(msg, r
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new user_pb.User;
-      reader.readMessage(value,user_pb.User.deserializeBinaryFromReader);
-      msg.setUser(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUseruuid(value);
       break;
     case 2:
-      var value = new user_pb.User;
-      reader.readMessage(value,user_pb.User.deserializeBinaryFromReader);
-      msg.setSeller(value);
-      break;
-    case 3:
-      var value = new orderItem_pb.OrderItem;
-      reader.readMessage(value,orderItem_pb.OrderItem.deserializeBinaryFromReader);
-      msg.setOrderItem(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setQuantity(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.addSaleitemuuids(value);
       break;
     default:
       reader.skipField();
@@ -804,34 +798,17 @@ proto.proto.RetrievalCreateRequest.prototype.serializeBinary = function() {
  */
 proto.proto.RetrievalCreateRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUser();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getUseruuid();
+  if (f.length > 0) {
+    writer.writeString(
       1,
-      f,
-      user_pb.User.serializeBinaryToWriter
+      f
     );
   }
-  f = message.getSeller();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getSaleitemuuidsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
       2,
-      f,
-      user_pb.User.serializeBinaryToWriter
-    );
-  }
-  f = message.getOrderItem();
-  if (f != null) {
-    writer.writeMessage(
-      3,
-      f,
-      orderItem_pb.OrderItem.serializeBinaryToWriter
-    );
-  }
-  f = message.getQuantity();
-  if (f !== 0) {
-    writer.writeInt64(
-      4,
       f
     );
   }
@@ -839,131 +816,57 @@ proto.proto.RetrievalCreateRequest.serializeBinaryToWriter = function(message, w
 
 
 /**
- * optional User user = 1;
- * @return {?proto.proto.User}
+ * optional string userUUID = 1;
+ * @return {string}
  */
-proto.proto.RetrievalCreateRequest.prototype.getUser = function() {
-  return /** @type{?proto.proto.User} */ (
-    jspb.Message.getWrapperField(this, user_pb.User, 1));
+proto.proto.RetrievalCreateRequest.prototype.getUseruuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * @param {?proto.proto.User|undefined} value
- * @return {!proto.proto.RetrievalCreateRequest} returns this
-*/
-proto.proto.RetrievalCreateRequest.prototype.setUser = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {string} value
  * @return {!proto.proto.RetrievalCreateRequest} returns this
  */
-proto.proto.RetrievalCreateRequest.prototype.clearUser = function() {
-  return this.setUser(undefined);
+proto.proto.RetrievalCreateRequest.prototype.setUseruuid = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {boolean}
+ * repeated string saleItemUUIDs = 2;
+ * @return {!Array<string>}
  */
-proto.proto.RetrievalCreateRequest.prototype.hasUser = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.proto.RetrievalCreateRequest.prototype.getSaleitemuuidsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 2));
 };
 
 
 /**
- * optional User seller = 2;
- * @return {?proto.proto.User}
- */
-proto.proto.RetrievalCreateRequest.prototype.getSeller = function() {
-  return /** @type{?proto.proto.User} */ (
-    jspb.Message.getWrapperField(this, user_pb.User, 2));
-};
-
-
-/**
- * @param {?proto.proto.User|undefined} value
- * @return {!proto.proto.RetrievalCreateRequest} returns this
-*/
-proto.proto.RetrievalCreateRequest.prototype.setSeller = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {!Array<string>} value
  * @return {!proto.proto.RetrievalCreateRequest} returns this
  */
-proto.proto.RetrievalCreateRequest.prototype.clearSeller = function() {
-  return this.setSeller(undefined);
+proto.proto.RetrievalCreateRequest.prototype.setSaleitemuuidsList = function(value) {
+  return jspb.Message.setField(this, 2, value || []);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.RetrievalCreateRequest.prototype.hasSeller = function() {
-  return jspb.Message.getField(this, 2) != null;
-};
-
-
-/**
- * optional OrderItem order_item = 3;
- * @return {?proto.proto.OrderItem}
- */
-proto.proto.RetrievalCreateRequest.prototype.getOrderItem = function() {
-  return /** @type{?proto.proto.OrderItem} */ (
-    jspb.Message.getWrapperField(this, orderItem_pb.OrderItem, 3));
-};
-
-
-/**
- * @param {?proto.proto.OrderItem|undefined} value
- * @return {!proto.proto.RetrievalCreateRequest} returns this
-*/
-proto.proto.RetrievalCreateRequest.prototype.setOrderItem = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {string} value
+ * @param {number=} opt_index
  * @return {!proto.proto.RetrievalCreateRequest} returns this
  */
-proto.proto.RetrievalCreateRequest.prototype.clearOrderItem = function() {
-  return this.setOrderItem(undefined);
+proto.proto.RetrievalCreateRequest.prototype.addSaleitemuuids = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 2, value, opt_index);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.RetrievalCreateRequest.prototype.hasOrderItem = function() {
-  return jspb.Message.getField(this, 3) != null;
-};
-
-
-/**
- * optional int64 quantity = 4;
- * @return {number}
- */
-proto.proto.RetrievalCreateRequest.prototype.getQuantity = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/**
- * @param {number} value
+ * Clears the list making it empty but non-null.
  * @return {!proto.proto.RetrievalCreateRequest} returns this
  */
-proto.proto.RetrievalCreateRequest.prototype.setQuantity = function(value) {
-  return jspb.Message.setProto3IntField(this, 4, value);
+proto.proto.RetrievalCreateRequest.prototype.clearSaleitemuuidsList = function() {
+  return this.setSaleitemuuidsList([]);
 };
 
 
@@ -999,7 +902,7 @@ proto.proto.RetrievalCreateResponse.prototype.toObject = function(opt_includeIns
  */
 proto.proto.RetrievalCreateResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    retrieval: (f = msg.getRetrieval()) && proto.proto.Retrieval.toObject(includeInstance, f)
+
   };
 
   if (includeInstance) {
@@ -1036,11 +939,6 @@ proto.proto.RetrievalCreateResponse.deserializeBinaryFromReader = function(msg, 
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new proto.proto.Retrieval;
-      reader.readMessage(value,proto.proto.Retrieval.deserializeBinaryFromReader);
-      msg.setRetrieval(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -1070,51 +968,6 @@ proto.proto.RetrievalCreateResponse.prototype.serializeBinary = function() {
  */
 proto.proto.RetrievalCreateResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getRetrieval();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.proto.Retrieval.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * optional Retrieval retrieval = 1;
- * @return {?proto.proto.Retrieval}
- */
-proto.proto.RetrievalCreateResponse.prototype.getRetrieval = function() {
-  return /** @type{?proto.proto.Retrieval} */ (
-    jspb.Message.getWrapperField(this, proto.proto.Retrieval, 1));
-};
-
-
-/**
- * @param {?proto.proto.Retrieval|undefined} value
- * @return {!proto.proto.RetrievalCreateResponse} returns this
-*/
-proto.proto.RetrievalCreateResponse.prototype.setRetrieval = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.proto.RetrievalCreateResponse} returns this
- */
-proto.proto.RetrievalCreateResponse.prototype.clearRetrieval = function() {
-  return this.setRetrieval(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.RetrievalCreateResponse.prototype.hasRetrieval = function() {
-  return jspb.Message.getField(this, 1) != null;
 };
 
 
@@ -1693,10 +1546,7 @@ proto.proto.RetrievalUpdateRequest.prototype.toObject = function(opt_includeInst
 proto.proto.RetrievalUpdateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    user: (f = msg.getUser()) && user_pb.User.toObject(includeInstance, f),
-    seller: (f = msg.getSeller()) && user_pb.User.toObject(includeInstance, f),
-    orderItem: (f = msg.getOrderItem()) && orderItem_pb.OrderItem.toObject(includeInstance, f),
-    quantity: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    delivered: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -1738,23 +1588,8 @@ proto.proto.RetrievalUpdateRequest.deserializeBinaryFromReader = function(msg, r
       msg.setUuid(value);
       break;
     case 2:
-      var value = new user_pb.User;
-      reader.readMessage(value,user_pb.User.deserializeBinaryFromReader);
-      msg.setUser(value);
-      break;
-    case 3:
-      var value = new user_pb.User;
-      reader.readMessage(value,user_pb.User.deserializeBinaryFromReader);
-      msg.setSeller(value);
-      break;
-    case 4:
-      var value = new orderItem_pb.OrderItem;
-      reader.readMessage(value,orderItem_pb.OrderItem.deserializeBinaryFromReader);
-      msg.setOrderItem(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setQuantity(value);
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setDelivered(value);
       break;
     default:
       reader.skipField();
@@ -1792,34 +1627,10 @@ proto.proto.RetrievalUpdateRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getUser();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getDelivered();
+  if (f) {
+    writer.writeBool(
       2,
-      f,
-      user_pb.User.serializeBinaryToWriter
-    );
-  }
-  f = message.getSeller();
-  if (f != null) {
-    writer.writeMessage(
-      3,
-      f,
-      user_pb.User.serializeBinaryToWriter
-    );
-  }
-  f = message.getOrderItem();
-  if (f != null) {
-    writer.writeMessage(
-      4,
-      f,
-      orderItem_pb.OrderItem.serializeBinaryToWriter
-    );
-  }
-  f = message.getQuantity();
-  if (f !== 0) {
-    writer.writeInt64(
-      5,
       f
     );
   }
@@ -1845,131 +1656,20 @@ proto.proto.RetrievalUpdateRequest.prototype.setUuid = function(value) {
 
 
 /**
- * optional User user = 2;
- * @return {?proto.proto.User}
- */
-proto.proto.RetrievalUpdateRequest.prototype.getUser = function() {
-  return /** @type{?proto.proto.User} */ (
-    jspb.Message.getWrapperField(this, user_pb.User, 2));
-};
-
-
-/**
- * @param {?proto.proto.User|undefined} value
- * @return {!proto.proto.RetrievalUpdateRequest} returns this
-*/
-proto.proto.RetrievalUpdateRequest.prototype.setUser = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.proto.RetrievalUpdateRequest} returns this
- */
-proto.proto.RetrievalUpdateRequest.prototype.clearUser = function() {
-  return this.setUser(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
+ * optional bool delivered = 2;
  * @return {boolean}
  */
-proto.proto.RetrievalUpdateRequest.prototype.hasUser = function() {
-  return jspb.Message.getField(this, 2) != null;
+proto.proto.RetrievalUpdateRequest.prototype.getDelivered = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
 };
 
 
 /**
- * optional User seller = 3;
- * @return {?proto.proto.User}
- */
-proto.proto.RetrievalUpdateRequest.prototype.getSeller = function() {
-  return /** @type{?proto.proto.User} */ (
-    jspb.Message.getWrapperField(this, user_pb.User, 3));
-};
-
-
-/**
- * @param {?proto.proto.User|undefined} value
- * @return {!proto.proto.RetrievalUpdateRequest} returns this
-*/
-proto.proto.RetrievalUpdateRequest.prototype.setSeller = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
+ * @param {boolean} value
  * @return {!proto.proto.RetrievalUpdateRequest} returns this
  */
-proto.proto.RetrievalUpdateRequest.prototype.clearSeller = function() {
-  return this.setSeller(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.RetrievalUpdateRequest.prototype.hasSeller = function() {
-  return jspb.Message.getField(this, 3) != null;
-};
-
-
-/**
- * optional OrderItem order_item = 4;
- * @return {?proto.proto.OrderItem}
- */
-proto.proto.RetrievalUpdateRequest.prototype.getOrderItem = function() {
-  return /** @type{?proto.proto.OrderItem} */ (
-    jspb.Message.getWrapperField(this, orderItem_pb.OrderItem, 4));
-};
-
-
-/**
- * @param {?proto.proto.OrderItem|undefined} value
- * @return {!proto.proto.RetrievalUpdateRequest} returns this
-*/
-proto.proto.RetrievalUpdateRequest.prototype.setOrderItem = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.proto.RetrievalUpdateRequest} returns this
- */
-proto.proto.RetrievalUpdateRequest.prototype.clearOrderItem = function() {
-  return this.setOrderItem(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.proto.RetrievalUpdateRequest.prototype.hasOrderItem = function() {
-  return jspb.Message.getField(this, 4) != null;
-};
-
-
-/**
- * optional int64 quantity = 5;
- * @return {number}
- */
-proto.proto.RetrievalUpdateRequest.prototype.getQuantity = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.proto.RetrievalUpdateRequest} returns this
- */
-proto.proto.RetrievalUpdateRequest.prototype.setQuantity = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
+proto.proto.RetrievalUpdateRequest.prototype.setDelivered = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 

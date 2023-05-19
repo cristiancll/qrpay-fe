@@ -24,7 +24,7 @@ var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/time
 
 var user_pb = require('./user_pb.js')
 
-var orderItem_pb = require('./orderItem_pb.js')
+var sale_pb = require('./sale_pb.js')
 const proto = {};
 proto.proto = require('./retrieval_pb.js');
 
