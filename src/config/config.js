@@ -4,7 +4,7 @@ const Config = {
 }
 
 function getAPIAddress() {
-    return process.env.API_ADDRESS;
+    return process.env.REACT_APP_API_ADDRESS;
 }
 
 
