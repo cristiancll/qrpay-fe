@@ -8,7 +8,7 @@ import OptionsColumn from "../../../components/OptionsColumn.jsx";
 import PageHeader from "../../../components/PageHeader.jsx";
 import {useNotification} from "../../../providers/NotificationProvider.jsx";
 
-const CreateClient = () => {
+const BillingCreateClient = () => {
     const navigate = useNavigate()
     const notify = useNotification();
     const [form, setForm] = useState({
@@ -77,4 +77,4 @@ const CreateClient = () => {
     )
 };
 
-export default CreateClient;
+export default BillingCreateClient;

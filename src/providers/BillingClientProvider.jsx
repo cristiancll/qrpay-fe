@@ -17,7 +17,7 @@ const useBilling = (user) => {
     const [expandedItems, setExpandedItems] = useState([]);
     const [total, setTotal] = useState(0);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
-
+    const [isLoaded, setIsLoaded] = useState(false);
     const [order, setOrder] = useState({});
 
 
@@ -40,9 +40,12 @@ const useBilling = (user) => {
         )
     }, []);
 
-    const selectCategory = (category) => {
-        setSelectedCategory(category)
-    }
+    useEffect(() => {
+        if (categories.length === 0 || items.length === 0 || skus.length === 0 || stocks.length === 0) {
+            return
+        }
+        setIsLoaded(true)
+    }, [categories, items, skus, stocks]);
 
     const toggleExpandItem = (item) => {
         // Checks if there is an SKU in the order that uses this item and prevents it closing
@@ -55,24 +58,6 @@ const useBilling = (user) => {
         } else {
             setExpandedItems([...expandedItems, item.uuid])
         }
-    }
-
-    const getCategoryItems = () => {
-        if (!selectedCategory) {
-            return []
-        }
-        return items.filter((i) => i.category.uuid === selectedCategory.uuid)
-    }
-
-    const getItemSkus = (item) => {
-        return skus.filter((s) => s.item.uuid === item.uuid)
-    }
-
-    const completeOrder = () => {
-        setConfirmDialogOpen(true)
-    }
-    const closeConfirmDialog = () => {
-        setConfirmDialogOpen(false)
     }
 
     const confirmOrder = () => {
@@ -118,13 +103,6 @@ const useBilling = (user) => {
         setTotal(total + (skuOrder.price * n))
     }
 
-    const getOrderSKU = (sku) => {
-        return order[sku.uuid]
-    }
-
-    const getStock = (sku) => {
-        return stocks.find((s) => s.sku.uuid === sku.uuid)
-    }
     return {
         categories,
         items,
@@ -135,26 +113,33 @@ const useBilling = (user) => {
         toggleExpandItem,
 
         selectedCategory,
-        selectCategory,
+        selectCategory: (cat) => setSelectedCategory(cat),
 
-        getCategoryItems,
+        getCategoryItems: () => {
+            if (!selectedCategory) {
+                return []
+            }
+            return items.filter((i) => i.category.uuid === selectedCategory.uuid)
+        },
 
-        getItemSkus,
+        getItemSkus: (item) => skus.filter((s) => s.item.uuid === item.uuid),
 
         total,
-        completeOrder,
+        completeOrder: () => setConfirmDialogOpen(true),
 
         confirmDialogOpen,
-        closeConfirmDialog,
+        closeConfirmDialog: () => setConfirmDialogOpen(false),
 
         confirmOrder,
 
         order,
-        getOrderSKU,
+        getOrderSKU: (sku) => order[sku.uuid],
         changeAmount,
 
-        getStock,
+        getStock: (sku) => stocks.find((s) => s.sku.uuid === sku.uuid),
         user,
+
+        isLoaded,
     }
 }
 
