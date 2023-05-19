@@ -3,7 +3,7 @@ import Config from "../config/config.js";
 import API from "./api.js";
 
 const {SaleServiceClient} = require("./proto/generated/sale_grpc_web_pb.js");
-const {SaleUnit, SaleCreateRequest, SaleUpdateRequest, SaleDeleteRequest, SaleGetRequest, SaleListRequest} = require("./proto/generated/sale_pb.js");
+const {ListAvailableSaleItemsByUserRequest, SaleUnit, SaleCreateRequest, SaleUpdateRequest, SaleDeleteRequest, SaleGetRequest, SaleListRequest} = require("./proto/generated/sale_pb.js");
 
 const service = new SaleServiceClient(Config.APIAddress, null, {
     'withCredentials': true
@@ -42,7 +42,12 @@ const SaleAPI = {
     List: (data, onSuccess, onError) => {
         const request = new SaleListRequest();
         service.list(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
-    }
+    },
+    ListAvailableByUser: (date, onSuccess, onError) => {
+        const request = new ListAvailableSaleItemsByUserRequest();
+        request.setUseruuid(date.uuid);
+        service.listAvailableSaleItemsByUser(request, API.getMetadata(), (err, response) => API.handleResponse(err, onError, response, onSuccess));
+    },
 }
 
 export default SaleAPI
