@@ -14,13 +14,24 @@ function getUserFromCookie() {
     return null;
 }
 
+function getUserFromLocalstorage() {
+    const user = localStorage.getItem('user');
+    if (user) {
+        return JSON.parse(user);
+    }
+    return null;
+}
+
+function setUserOnLocalstorage(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+}
 function setTokenOnLocalstorage(response) {
     const token = response.getToken();
     localStorage.setItem('jwt', token);
 }
 
 const useAuth = () => {
-    const [user, setUser] = useState(getUserFromCookie());
+    const [user, setUser] = useState(getUserFromLocalstorage());
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(true);
 
@@ -28,18 +39,24 @@ const useAuth = () => {
         API.Auth.Login({phone, password}, (data) => {
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
             setTokenOnLocalstorage(data)
+            setUserOnLocalstorage(u)
             setUser(u);
             navigate("/");
         }, onError)
     };
 
     const logout = () => {
-        const handleLogout = () => {
+        const handleLogout = (res) => {
+            console.log("LOGGING OUT!")
             localStorage.setItem('jwt', "");
+            localStorage.setItem('user', "");
             setUser(null);
             navigate("/login");
         }
-        API.Auth.Logout({}, handleLogout, handleLogout)
+        const handleLogoutError = (err) => {
+            console.log("ERROR WHEN LOGGING OUT: ", err?.message)
+        }
+        API.Auth.Logout({}, handleLogout, handleLogoutError)
     };
 
     useEffect(() => {
@@ -51,6 +68,7 @@ const useAuth = () => {
         API.Auth.Heartbeat({}, (data) => {
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
             setTokenOnLocalstorage(data)
+            setUserOnLocalstorage(u)
             setUser(u)
             setLoading(false)
         }, (err) => {
