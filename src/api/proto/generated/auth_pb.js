@@ -486,7 +486,8 @@ proto.proto.AuthLoginResponse.prototype.toObject = function(opt_includeInstance)
 proto.proto.AuthLoginResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     user: (f = msg.getUser()) && user_pb.User.toObject(includeInstance, f),
-    auth: (f = msg.getAuth()) && proto.proto.Auth.toObject(includeInstance, f)
+    auth: (f = msg.getAuth()) && proto.proto.Auth.toObject(includeInstance, f),
+    token: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -533,6 +534,10 @@ proto.proto.AuthLoginResponse.deserializeBinaryFromReader = function(msg, reader
       reader.readMessage(value,proto.proto.Auth.deserializeBinaryFromReader);
       msg.setAuth(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setToken(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -576,6 +581,13 @@ proto.proto.AuthLoginResponse.serializeBinaryToWriter = function(message, writer
       2,
       f,
       proto.proto.Auth.serializeBinaryToWriter
+    );
+  }
+  f = message.getToken();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
     );
   }
 };
@@ -655,6 +667,24 @@ proto.proto.AuthLoginResponse.prototype.hasAuth = function() {
 };
 
 
+/**
+ * optional string token = 3;
+ * @return {string}
+ */
+proto.proto.AuthLoginResponse.prototype.getToken = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.proto.AuthLoginResponse} returns this
+ */
+proto.proto.AuthLoginResponse.prototype.setToken = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
 
 
 
@@ -688,7 +718,8 @@ proto.proto.AuthHeartbeatResponse.prototype.toObject = function(opt_includeInsta
 proto.proto.AuthHeartbeatResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     user: (f = msg.getUser()) && user_pb.User.toObject(includeInstance, f),
-    auth: (f = msg.getAuth()) && proto.proto.Auth.toObject(includeInstance, f)
+    auth: (f = msg.getAuth()) && proto.proto.Auth.toObject(includeInstance, f),
+    token: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -735,6 +766,10 @@ proto.proto.AuthHeartbeatResponse.deserializeBinaryFromReader = function(msg, re
       reader.readMessage(value,proto.proto.Auth.deserializeBinaryFromReader);
       msg.setAuth(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setToken(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -778,6 +813,13 @@ proto.proto.AuthHeartbeatResponse.serializeBinaryToWriter = function(message, wr
       2,
       f,
       proto.proto.Auth.serializeBinaryToWriter
+    );
+  }
+  f = message.getToken();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
     );
   }
 };
@@ -854,6 +896,24 @@ proto.proto.AuthHeartbeatResponse.prototype.clearAuth = function() {
  */
 proto.proto.AuthHeartbeatResponse.prototype.hasAuth = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional string token = 3;
+ * @return {string}
+ */
+proto.proto.AuthHeartbeatResponse.prototype.getToken = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.proto.AuthHeartbeatResponse} returns this
+ */
+proto.proto.AuthHeartbeatResponse.prototype.setToken = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 

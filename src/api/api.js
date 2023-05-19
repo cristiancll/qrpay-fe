@@ -27,7 +27,9 @@ const API = {
     Sale: SaleAPI,
     Retrieval: RetrievalAPI,
     getMetadata: () => {
+        console.log("LOCAL STORAGE TOKEN: ", localStorage.getItem("jwt"))
         return {
+            "Authorization": "Bearer " + localStorage.getItem("jwt"),
         }
     },
     handleResponse: (err, onError, response, onSuccess) => {

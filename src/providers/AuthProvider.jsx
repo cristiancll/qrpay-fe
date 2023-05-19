@@ -14,6 +14,11 @@ function getUserFromCookie() {
     return null;
 }
 
+function setTokenOnLocalstorage(response) {
+    const token = response.getToken();
+    localStorage.setItem('jwt', token);
+}
+
 const useAuth = () => {
     const [user, setUser] = useState(getUserFromCookie());
     const navigate = useNavigate();
@@ -22,15 +27,15 @@ const useAuth = () => {
     const login = (phone, password, onError = {}) => {
         API.Auth.Login({phone, password}, (data) => {
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
-            Cookies.set('user', JSON.stringify(u));
+            setTokenOnLocalstorage(data)
             setUser(u);
             navigate("/");
         }, onError)
     };
 
     const logout = () => {
-        const handleLogout = (r) => {
-            Cookies.remove('user');
+        const handleLogout = () => {
+            localStorage.setItem('jwt', "");
             setUser(null);
             navigate("/login");
         }
@@ -45,7 +50,7 @@ const useAuth = () => {
         setLoading(true)
         API.Auth.Heartbeat({}, (data) => {
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
-            Cookies.set('user', JSON.stringify(u));
+            setTokenOnLocalstorage(data)
             setUser(u)
             setLoading(false)
         }, (err) => {
