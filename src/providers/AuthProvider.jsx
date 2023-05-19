@@ -14,6 +14,13 @@ function getUserFromCookie() {
     return null;
 }
 
+function setTokenOnLocalstorage(response) {
+    const authHeader = response.getMetadata().get('authorization');
+    const token = authHeader.split(' ')[1];
+    console.log("TOKEN: ", token)
+    localStorage.setItem('jwt', token);
+}
+
 const useAuth = () => {
     const [user, setUser] = useState(getUserFromCookie());
     const navigate = useNavigate();
@@ -22,19 +29,24 @@ const useAuth = () => {
     const login = (phone, password, onError = {}) => {
         API.Auth.Login({phone, password}, (data) => {
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
-            Cookies.set('user', JSON.stringify(u));
+            setTokenOnLocalstorage(data)
             setUser(u);
             navigate("/");
         }, onError)
     };
 
     const logout = () => {
-        const handleLogout = (r) => {
-            Cookies.remove('user');
+        const handleLogout = (data) => {
+            setTokenOnLocalstorage(data)
             setUser(null);
             navigate("/login");
         }
-        API.Auth.Logout({}, handleLogout, handleLogout)
+        const handleLogoutError = (err) => {
+            localStorage.setItem('jwt', "");
+            setUser(null);
+            navigate("/login");
+        }
+        API.Auth.Logout({}, handleLogout, handleLogoutError)
     };
 
     useEffect(() => {
@@ -45,7 +57,7 @@ const useAuth = () => {
         setLoading(true)
         API.Auth.Heartbeat({}, (data) => {
             const u = {...data.getUser().toObject(), ...data.getAuth().toObject()}
-            Cookies.set('user', JSON.stringify(u));
+            setTokenOnLocalstorage(data)
             setUser(u)
             setLoading(false)
         }, (err) => {
