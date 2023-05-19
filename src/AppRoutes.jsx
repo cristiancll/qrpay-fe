@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import AboutPage from "./pages/AboutPage.jsx";
 import WhatsAppPage from "./pages/home/admin/WhatsAppPage.jsx";
 import BillingPage from "./pages/home/billing/BillingPage.jsx";
-import CreateClient from "./pages/home/billing/CreateClient.jsx";
+import BillingCreateClient from "./pages/home/billing/BillingCreateClient.jsx";
 import UserPage from "./pages/home/client/UserPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import HomePage from "./pages/home/HomePage.jsx";
@@ -36,7 +36,7 @@ function AppRoutes() {
                 <Route path="admin/users" element={<UsersPage />} />
                 <Route path="manager" element={<ManagerPage/>} />
                 <Route path="billing" element={<BillingPage/>} />
-                <Route path="billing/create" element={<CreateClient/>} />
+                <Route path="billing/create" element={<BillingCreateClient/>} />
                 <Route path="billing/client" element={<BillingClientPage/>} />
                 <Route path="seller" element={<SellerPage/>} />
                 <Route path="seller/client" element={<SellerClientPage/>} />
